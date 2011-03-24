@@ -33,3 +33,13 @@ gem 'rails', '3.0.5'
 group :test do
   gem 'rspec-rails', '>= 2.4.0'
 end
+
+group :cucumber do
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'cucumber-rails'
+  gem 'cucumber', '0.8.5'
+  gem 'rspec-rails', '>= 2.4.0'
+  gem 'spork'
+  gem 'launchy'    # So you can do Then show me the page
+end
