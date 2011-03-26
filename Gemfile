@@ -1,5 +1,7 @@
 source 'http://rubygems.org'
 
+DM_VERSION    = '~> 1.1.0'
+  
 gem 'rails', '3.0.5'
 
 # Bundle edge Rails instead:
@@ -22,6 +24,15 @@ gem 'rails', '3.0.5'
 # gem 'nokogiri'
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
+
+# DataMapper
+# https://github.com/datamapper/dm-rails
+gem 'dm-rails', DM_VERSION
+gem 'bson_ext'
+gem 'mongo'
+gem 'dm-aggregates'
+gem 'dm-migrations'
+gem 'dm-mongo-adapter'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
