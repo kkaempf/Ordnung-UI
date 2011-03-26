@@ -11,3 +11,10 @@ Feature: Dashboard
       Given I have a browser
       When I go to the dashboard page
       Then I should see "Dashboard"
+
+    Scenario: New item
+      Given I have a browser
+      When I go to the dashboard page
+      Then I should see "New item"
+      When I follow "New item"
+      Then I should see "File to Import"
