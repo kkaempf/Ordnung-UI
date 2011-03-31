@@ -13,8 +13,13 @@ Feature: Dashboard
       Then I should see "Dashboard"
 
     Scenario: Add item
-      Given I have a browser
-      When I go to the dashboard page
+      Given I am on the dashboard page
       Then I should see "Add item"
       When I follow "Add item"
       Then I should see "File to Import"
+
+    Scenario: Select directory
+      Given I am on the dashboard page
+      Then I should see "Add directory"
+      When I follow "Add directory"
+      Then I should see "/"
