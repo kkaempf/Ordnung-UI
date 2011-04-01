@@ -14,6 +14,9 @@ module NavigationHelpers
     when /the dashboard page/
       '/'
 
+    when /the "Add directory" page/
+      '/directory'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

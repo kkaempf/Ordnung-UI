@@ -1,5 +1,4 @@
 Ordnung::Application.routes.draw do
-  get "dir_selector/index"
 
   get "dashboard/home"
 
@@ -7,7 +6,7 @@ Ordnung::Application.routes.draw do
 
   get "dashboard/logout"
 
-  match "dir_selector" => "dir_selector#index"
+  get "directory" => "directory#index"
 
   resources :items
 
