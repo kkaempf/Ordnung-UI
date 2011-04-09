@@ -33,6 +33,9 @@ gem 'mongo'
 gem 'dm-aggregates'
 gem 'dm-migrations'
 gem 'dm-mongo-adapter'
+gem 'jnunemaker-validatable'
+gem 'mongo_mapper'
+gem 'plucky'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators

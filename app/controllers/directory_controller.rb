@@ -18,4 +18,8 @@ class DirectoryController < ApplicationController
     end
   end
 
+  #
+  # import directory
+  def import
+  end
 end

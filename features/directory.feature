@@ -13,3 +13,9 @@ Feature: Directory
       And I should see a button with "/"
       And I should see the contents of directory "/"
       And I should see a button with "Import"
+
+   Scenario: Add directory
+      Given I am on the directory page
+      Then I should see a button with "Import"
+      When I press "Import"
+      

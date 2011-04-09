@@ -81,6 +81,8 @@ GEM
     gherkin (2.1.5)
       trollop (~> 1.16.2)
     i18n (0.5.0)
+    jnunemaker-validatable (1.8.4)
+      activesupport (>= 2.3.4)
     json_pure (1.4.6)
     launchy (0.3.5)
       configuration (>= 0.0.5)
@@ -93,7 +95,13 @@ GEM
     mime-types (1.16)
     mongo (1.2.4)
       bson (>= 1.2.4)
+    mongo_mapper (0.8.0)
+      activesupport (>= 2.3.4)
+      jnunemaker-validatable (~> 1.8.4)
+      plucky (~> 0.3.0)
     nokogiri (1.4.4)
+    plucky (0.3.7)
+      mongo (~> 1.1)
     polyglot (0.3.1)
     rack (1.2.1)
     rack-mount (0.6.13)
@@ -155,8 +163,11 @@ DEPENDENCIES
   dm-migrations
   dm-mongo-adapter
   dm-rails (~> 1.1.0)
+  jnunemaker-validatable
   launchy
   mongo
+  mongo_mapper
+  plucky
   rails (= 3.0.5)
   rspec-rails (>= 2.4.0)
   spork
