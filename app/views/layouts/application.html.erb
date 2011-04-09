@@ -2,13 +2,17 @@
 <html>
 <head>
   <title>Ordnung</title>
-  <%= stylesheet_link_tag :all %>
+  <%= stylesheet_link_tag 'reset' %>
+  <%= stylesheet_link_tag 'text' %>
+  <%= stylesheet_link_tag '960' %>
+  <%= stylesheet_link_tag 'ordnung' %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
 </head>
 <body>
-
+<div class="container_12">
 <%= yield %>
-
+</div>
+<%= yield :javascript %>
 </body>
 </html>
