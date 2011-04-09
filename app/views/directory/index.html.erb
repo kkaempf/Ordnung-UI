@@ -1,4 +1,6 @@
+<div class="grid_12">
 <h1>Choose Directory to add</h1>
+
 <div class="chooser">
 <% path = "" %>
 <% splitted = @dir.split("/") %>
@@ -9,7 +11,14 @@
   <%= button_to (d.empty? ? "/" : d.to_s), { :controller => "directory", :dir => path }, :action => :get %>
 </div>
 <% end %>
+
+<div class="dirimport">
+  <%= button_to "Import", { :controller => "directory", :action => "import", :dir => @dir } %>
 </div>
+
+</div>
+
+
 <div id="directories">
 <% @directories.sort.each do |d| %>
 <div class="direntry">
@@ -17,8 +26,11 @@
 </div>
 <% end %>
 </div>
+
 <div id="files">
 <% @files.sort.each do |f| %>
 <div class="file"><%= f %></div>
 <% end %>
+</div>
+
 </div>

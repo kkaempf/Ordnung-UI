@@ -6,7 +6,8 @@ Ordnung::Application.routes.draw do
 
   get "dashboard/logout"
 
-  match "directory" => "directory#index"
+  get "directory" => "directory#index"
+  post "directory/import"
 
   resources :items
 

@@ -8,6 +8,10 @@ div.dirlink {
   float: left;
 }
 
+div.dirimport {
+  float: right;
+}
+
 div#directories {
   clear: left;
   width: 800px;

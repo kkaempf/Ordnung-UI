@@ -12,3 +12,4 @@ Feature: Directory
       Then I should see "Directory"
       And I should see a button with "/"
       And I should see the contents of directory "/"
+      And I should see a button with "Import"
