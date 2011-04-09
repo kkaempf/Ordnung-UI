@@ -1,0 +1,30 @@
+div.chooser {
+  width: 800px;
+  height: 25px;
+  background: grey;
+}
+
+div.dirlink {
+  float: left;
+}
+
+div#directories {
+  clear: left;
+  width: 800px;
+  background: #C0C0C0;
+}
+
+div.direntry {
+  padding: 4px 0px 0px 4px;
+  font-weight: bold;
+}
+
+div#files {
+  width: 800px;
+  background: #a0a0a0;
+}
+
+div.file {
+  padding: 4px 0px 0px 4px;
+  font-style: italic;
+}

@@ -1,3 +1,24 @@
-<h1>DirSelector#index</h1>
-<p>Find me in app/views/dir_selector/index.html.erb</p>
-<p>Current dir :<%= @dir %></p>
+<h1>Choose Directory to add</h1>
+<div class="chooser">
+<% path = "" %>
+<% splitted = @dir.split("/") %>
+<% splitted = [""] if splitted.empty? %>
+<% splitted.each do |d| %>
+<%   path << "/#{d}" unless d.empty? %>
+<div class="dirlink">
+  <%= button_to (d.empty? ? "/" : d.to_s), { :controller => "directory", :dir => path }, :action => :get %>
+</div>
+<% end %>
+</div>
+<div id="directories">
+<% @directories.sort.each do |d| %>
+<div class="direntry">
+  <%= link_to d, { :controller => "directory", :dir => File.join(@dir,d) } %>
+</div>
+<% end %>
+</div>
+<div id="files">
+<% @files.sort.each do |f| %>
+<div class="file"><%= f %></div>
+<% end %>
+</div>

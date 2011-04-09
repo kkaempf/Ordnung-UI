@@ -14,7 +14,7 @@ module NavigationHelpers
     when /the dashboard page/
       '/'
 
-    when /the "Add directory" page/
+    when /the directory page/
       '/directory'
 
     # Add more mappings here.

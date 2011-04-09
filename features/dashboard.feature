@@ -22,4 +22,4 @@ Feature: Dashboard
       Given I am on the dashboard page
       Then I should see "Add directory"
       When I follow "Add directory"
-      Then I should be on the "Add directory" page
+      Then I should be on the directory page
