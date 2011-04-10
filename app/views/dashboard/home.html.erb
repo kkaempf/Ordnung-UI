@@ -2,3 +2,10 @@
 <p>Welcome to the Dashboard of Ordnung !</p>
 <a href="/items/new">Add item</a><br/>
 <a href="/directory">Add directory</a><br/>
+<% if @items %>
+<div class="items">
+<% @items.each do |item| %>
+[<%= item.checksum %>]:<%= item.dir %>/<%= item.name %><br/>
+<% end %>
+<% end %>
+</div>

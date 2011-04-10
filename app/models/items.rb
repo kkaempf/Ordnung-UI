@@ -10,7 +10,6 @@ class Item
   
   key :name, String, :required => true
   key :dir, String
-  key :content, Binary
   key :checksum, String, :required => true
   
 #  validates_presence_of :name
@@ -18,12 +17,17 @@ class Item
   
   before_save :compute_checksum
   
+  def initialize *args
+    $stderr.puts "#{self}.new"
+  end
+
   private
     #
     # compute file checksum
     #  either content is set (uploaded file)
     #  or dir + name 
     def compute_checksum
+      $stderr.puts "#{self}.compute_checksum"
       if self.content
 	self.checksum = Digest::SHA1.hexdigest(content)
 	self.dir = nil

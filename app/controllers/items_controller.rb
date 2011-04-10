@@ -7,6 +7,7 @@ class ItemsController < ApplicationController
   
   def create
     dir = params[:dir]
+    recursive = params[:recursive]
     if dir
       # import directory
       unless File.directory?(dir)
@@ -17,6 +18,9 @@ class ItemsController < ApplicationController
 	d.each do |file|
 	  next if file == "."
 	  next if file == ".."
+	  unless recursive
+	    next if File.directory?(File.join(dir,file))
+	  end
 	  $stderr.puts "Import #{dir}/#{file}"
 	  item = Item.create({
 	    :dir => dir,
@@ -24,6 +28,7 @@ class ItemsController < ApplicationController
 	  })
 	  $stderr.puts "as item #{item}"
 	  item.save
+	  $stderr.puts "with checksum #{item.checksum}"
 	end
       end
     else
@@ -54,6 +59,7 @@ class ItemsController < ApplicationController
       })
       $stderr.puts "as item #{item}"
       item.save  
+      $stderr.puts "with checksum #{item.checksum}"
     end
     redirect_to "/"
   end
