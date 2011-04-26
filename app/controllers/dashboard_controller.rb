@@ -1,6 +1,6 @@
 class DashboardController < ApplicationController
   def home
-    @items = Item.find
+    @items = Item.all
   end
 
   def login
