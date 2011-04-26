@@ -6,7 +6,7 @@
 require 'digest/sha1'
 
 class Item
-  include MongoMapper::Document
+  include Mongoid::Document
   
   key :name, String, :required => true
   key :dir, String
