@@ -22,10 +22,7 @@ class ItemsController < ApplicationController
 	    next if File.directory?(File.join(dir,file))
 	  end
 	  $stderr.puts "Import #{dir}/#{file}"
-	  item = Item.create({
-	    :dir => dir,
-	    :name => file
-	  })
+	  item = Item.new(:dir => dir, :name => file)
 	  $stderr.puts "as item #{item}"
 	  item.save
 	  $stderr.puts "with checksum #{item.checksum}"
@@ -53,10 +50,8 @@ class ItemsController < ApplicationController
         return
       end
       $stderr.puts "Import #{uploaded_file.original_filename}"
-      item = Item.create({
-	:name => uploaded_file.original_filename,
-	:content => uploaded_file.read
-      })
+      item = Item.new(:name => uploaded_file.original_filename,
+		      :content => uploaded_file.read)
       $stderr.puts "as item #{item}"
       item.save  
       $stderr.puts "with checksum #{item.checksum}"
