@@ -1,25 +1,22 @@
 #
 # Item with path, file, and checksum
 #
-# See http://www.slideshare.net/jnunemaker/mongo-mapper
-#
 require 'digest/sha1'
 
 class Item
   include Mongoid::Document
   
-  key :name, String, :required => true
-  key :dir, String
-  key :checksum, String, :required => true
+  field :name, :type => String
+  field :dir, :type => String
+  field :content
+  field :checksum, :type => String
   
+  attr_accessible :content
+
 #  validates_presence_of :name
 #  validates_presence_of :checksum
   
   before_save :compute_checksum
-  
-  def initialize *args
-    $stderr.puts "#{self}.new"
-  end
 
   private
     #
