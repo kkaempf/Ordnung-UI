@@ -2,13 +2,10 @@ source 'http://rubygems.org'
 
 DM_VERSION    = '~> 1.1.0'
   
-gem 'rails', '3.0.7'
+gem 'rails'
 
-gem 'bson_ext', "~> 1.3"
-gem 'mongo'
-gem 'mongoid', "~> 2.0"
-
-gem "SystemTimer"
+gem 'bson_ext'
+gem 'mongoid'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
