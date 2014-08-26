@@ -6,6 +6,7 @@ gem 'rails'
 
 gem 'bson_ext'
 gem 'mongoid'
+gem 'activeresource'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
@@ -20,7 +21,6 @@ group :test do
   gem 'database_cleaner'
   gem 'cucumber-rails'
   gem 'cucumber'
-  gem 'rspec-rails', '>= 2.4.0'
   gem 'spork'
   gem 'launchy'    # So you can do Then show me the page
 end
