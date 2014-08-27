@@ -8,7 +8,7 @@
 <% splitted.each do |d| %>
 <%   path << "/#{d}" unless d.empty? %>
 <div class="dirlink">
-  <%= button_to (d.empty? ? "/" : d.to_s), { :controller => "directory", :dir => path }, :action => :get %>
+  <%= link_to (d.empty? ? "/" : d.to_s), { :controller => "directory", :dir => path } %>
 </div>
 <% end %>
 

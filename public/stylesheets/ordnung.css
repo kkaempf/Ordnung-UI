@@ -1,11 +1,15 @@
 div.chooser {
   width: 800px;
-  height: 25px;
+  height: 30px;
   background: grey;
 }
 
 div.dirlink {
   float: left;
+  padding: 1px 4px 1px 4px;
+  margin: 2px 4px 2px 4px;
+  border: 1px solid black;
+  background: #C0C0C0;
 }
 
 div.dirimport {
