@@ -1,38 +1,21 @@
-div.chooser {
-  width: 800px;
-  height: 30px;
-  background: grey;
+html, body {
+  height: 100%;
 }
 
-div.dirlink {
-  float: left;
-  padding: 1px 4px 1px 4px;
-  margin: 2px 4px 2px 4px;
-  border: 1px solid black;
-  background: #C0C0C0;
+body {
+  padding: 50px;
 }
 
-div.dirimport {
-  float: right;
+.row {
+  overflow: hidden;
 }
 
-div#directories {
-  clear: left;
-  width: 800px;
-  background: #C0C0C0;
+[class*="col-"] {
+  margin-bottom: -99999px;
+  padding-bottom: 99999px;
 }
 
-div.direntry {
-  padding: 4px 0px 0px 4px;
-  font-weight: bold;
+.ordnung_middle {
+  background-color: #c0c0c0;
 }
 
-div#files {
-  width: 800px;
-  background: #a0a0a0;
-}
-
-div.file {
-  padding: 4px 0px 0px 4px;
-  font-style: italic;
-}
