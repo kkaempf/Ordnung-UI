@@ -11,7 +11,7 @@ Then /^I should see the contents of directory "([^"]*)"$/ do |arg1| #"
       next if dir == "."
       next if dir == ".."
       if page.respond_to? :should
-	page.should have_content(dir)
+	expect(page).to have_content(dir)
       else
 	assert page.has_content?(dir)
       end
