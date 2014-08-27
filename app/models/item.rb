@@ -11,9 +11,9 @@ class Item
   field :content
   field :checksum, :type => String
   
-  attr_accessible :content, :name, :dir
+#  attr_accessible :content, :name, :dir
 
-  attr_protected :checksum
+#  attr_protected :checksum
 #  validates_presence_of :name
 #  validates_presence_of :checksum
   
