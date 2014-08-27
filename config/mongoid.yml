@@ -60,5 +60,3 @@ test:
       database: ordnung_test
       hosts:
         - localhost:27017
-      options:
-        consistency: :strong
