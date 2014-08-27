@@ -156,7 +156,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   launchy
-  mongoid
-  rails
-  rspec-rails (>= 2.4.0)
+  mongoid (~> 4.0.0)
+  rails (~> 4.1.0)
+  rspec-rails
   spork

@@ -2,10 +2,10 @@ source 'http://rubygems.org'
 
 DM_VERSION    = '~> 1.1.0'
   
-gem 'rails'
+gem 'rails', '~> 4.1.0'
 
 gem 'bson_ext'
-gem 'mongoid'
+gem 'mongoid', '~> 4.0.0'
 gem 'activeresource'
 
 # Bundle gems for the local environment. Make sure to
@@ -16,10 +16,10 @@ gem 'activeresource'
 # end
 
 group :test do
-  gem 'rspec-rails', '>= 2.4.0'
+  gem 'rspec-rails'
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', :require => false
   gem 'cucumber'
   gem 'spork'
   gem 'launchy'    # So you can do Then show me the page
