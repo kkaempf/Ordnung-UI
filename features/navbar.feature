@@ -15,3 +15,5 @@ Feature: Navbar
     Scenario: Navbar
       Given I am on the home page
       Then I should see a navigation bar
+      And I should see a "Browse" link
+      And I should see a "Import" link
