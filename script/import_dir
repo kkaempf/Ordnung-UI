@@ -25,7 +25,7 @@ def create_thumbnail item
   thumb_file = File.join($toplevel, "public", item.thumb_file)
   unless File.exist?(item.thumb_file)
     FileUtils.mkdir_p thumb_dir
-    system "convert", orig_file, "-resize", "100x100^", "-gravity", "center", thumb_file
+    system "convert", orig_file, "-resize", "200x200^", "-gravity", "center", thumb_file
   end
 end
 

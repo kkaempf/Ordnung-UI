@@ -50,7 +50,7 @@ $( window ).resize(function() {
 // start app
 $( window ).ready(function() {
   // change mouse cursor over zoom elements
-  $('.zoom_glyph').hover(
+  $('.glyphicon').hover(
     function() { // enter
       $('html,body').css('cursor', 'pointer');
     },
@@ -58,7 +58,12 @@ $( window ).ready(function() {
       $('html,body').css('cursor', 'default');
     }
   );
-  // make zoom element clickable
+  // make page elements clickable
+  $('#page_previous').click(function() {
+  });
+  $('#page_next').click(function() {
+  });
+  // make zoom elements clickable
   $('#zoom_in').click(function() {
     if (zoom < 300) {
       zoom += 10;

@@ -6,6 +6,8 @@ require 'digest/sha1'
 class Item
   include Mongoid::Document
   
+  @@toplevel = File.expand_path(File.join(File.dirname(__FILE__), "..", ".."))
+
   field :name, :type => String
   field :size, :type => Fixnum
   field :sha1sum, :type => String
@@ -44,6 +46,10 @@ class Item
 
   def thumb_file
     thumb_file = File.join(self.thumb_dir, "#{self.checksum}.jpg")
+  end
+
+  def thumb_exists?
+    File.exist?(File.join(@@toplevel, "public", self.thumb_file))
   end
 
   def to_s
