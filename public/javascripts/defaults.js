@@ -3,8 +3,8 @@
 var zoom = 100;
 
 var set_thumbnail_size = function() {
-  $('.thumbnail').css('width', zoom);
-  $('.thumbnail').css('height', zoom);
+  $('.thumbnail').css('width', zoom+"px");
+  $('.thumbnail').css('height', zoom+"px");
 };
 
 // feed window size change back to application
