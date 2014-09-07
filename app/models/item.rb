@@ -7,9 +7,11 @@ class Item
   include Mongoid::Document
   
   field :name, :type => String
+  field :size, :type => Fixnum
+  field :checksum, :type => String
+  has_one :mimetype
   field :dir, :type => String
   field :content
-  field :checksum, :type => String
   
 #  attr_accessible :content, :name, :dir
 
