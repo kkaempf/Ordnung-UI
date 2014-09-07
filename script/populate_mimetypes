@@ -8,16 +8,25 @@ require 'rubygems'
 ENV['RAILS_ENV'] ||= 'development'
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 
+Mimetype.collection.drop
+Fileextension.collection.drop
+
+count = 0
+
 File.open('/etc/mime.types').each do |l|
   next if l[0,1] == '#'
-  l.strip.match(/([^\s]+)\s+((([^\s]+)(\s+)?)+)/) do |matchdata|
-    mimetype = matchdata[1]
-    extensions = matchdata[2].split(' ')
-    ext_ids = []
-    extensions.each do |ext|
-      ext_ids << Fileextension.new(:name => ext)
-    end
-    mimetype = Mimetype.new(:name => mimetype, :fileextensions => ext_ids)
-    puts "Mimetype #{mimetype} with #{ext_ids}"
+  elements = l.strip.split(' ')
+  mimetype = elements.shift
+  ext_ids = []
+  elements.each do |ext|
+    f_ext = Fileextension.new(:name => ext.downcase)
+    ext_ids << f_ext
   end
+  mimetype = Mimetype.new(:name => mimetype)
+  mimetype.fileextensions = ext_ids # this sets mimetype_id in Fileextension
+  mimetype.save
+  ext_ids.each { |e| e.save } # save Fileextensions
+  count += 1
 end
+
+puts "Saved #{count} mimetypes"

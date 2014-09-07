@@ -1,0 +1,59 @@
+#!/usr/bin/ruby
+#
+# import_dir
+#
+# Import directory to Items
+#
+
+require 'rubygems'
+
+def usage msg=nil
+  $stderr.puts msg if msg
+  $stderr.puts "Usage: import_dir [-r] <directory>"
+  $stderr.puts "\t-r recursive"
+  exit 1
+end
+
+def import path, recursive
+  Dir.chdir(path) do |dir|
+    Dir.foreach('.') do |f|
+      next if f[0,1] == '.'
+      if File.directory?(f)
+        import(File.join(path, f), recursive) if recursive
+      elsif File.file?(f)
+        unless File.readable?(f)
+          $stderr.puts "Unreadable, skipping #{f}"
+          next
+        end
+        extname = File.extname(f)
+        unless extname.empty?
+          fileextension = Fileextension.find_by(:name => extname[1..-1].downcase) # remove leading dot from extname
+          fileextension = fileextension.first if fileextension.is_a? Array
+        end
+        item = Item.new(:name => f, :dir => dir)
+        unless item.duplicate
+          item.mimetype = fileextension.mimetype if fileextension
+          item.save
+          puts "#{f} #{item}"
+        end
+      else
+        $stderr.puts "Not imported: #{f}"
+      end
+    end # Dir.foreach
+  end # Dir.chdir
+end
+
+ENV['RAILS_ENV'] ||= 'development'
+require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
+
+dir = ARGV.shift
+recursive = false
+if dir == "-r"
+  recursive = true
+  dir = ARGV.shift
+end
+usage "Must specify directory" unless dir
+
+usage "#{dir} is not a directory" unless File.directory?(dir)
+
+import dir, recursive
