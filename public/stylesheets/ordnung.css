@@ -7,15 +7,32 @@ body {
 }
 
 .row {
-  overflow: hidden;
 }
 
-[class*="col-"] {
-  margin-bottom: -99999px;
-  padding-bottom: 99999px;
-}
-
-.ordnung_middle {
+#ordnung_middle {
   background-color: #c0c0c0;
 }
 
+#ordnung_right {
+}
+
+.dashboard_header {
+  float: left;
+  font-size: 200%;
+  font-weight: bold;
+}
+
+.zoom_glyph {
+  float: right;
+  margin: 10px;
+}
+
+.thumbnail {
+  float: left;
+  border: 5px;
+  border-style: solid;
+  border-color: white;
+  margin: 3px;
+  background: #0d8fdb;
+  color: white;
+}

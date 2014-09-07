@@ -3,13 +3,15 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   get "dashboard/home"
-
+  get "dashboard/redraw"
+  get "dashboard/right"
   get "dashboard/login"
-
   get "dashboard/logout"
 
   get "directory" => "directory#index"
   post "directory/import"
+
+  get "resize/:width/:height/:zoom", to: 'resize#resize'
 
   resources :items
   

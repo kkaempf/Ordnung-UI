@@ -7,7 +7,12 @@ Feature: Dashboard
       Given... (common init for all scenarios)
 
     @tag
-    Scenario: Start page
+    Scenario: Dashboard page
       Given I have a browser
       When I go to the dashboard page
       Then I should see "Dashboard"
+
+    Scenario: Dashboard content
+      When I go to the dashboard page
+      Then I should see many thumbnails
+    

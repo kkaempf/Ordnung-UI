@@ -1,0 +1,25 @@
+<div id="dashboard_content">
+<% (@items_per_row * @items_per_col).times do |num| %>
+  <% if (num % @items_per_row) == 0 %>
+    <% if num == 0 %>
+      <div class="row" id="first_row">
+    <% else %>
+      <div class="row">
+    <% end %>
+        <div class="col-md-12">
+  <% end %>
+    <% if num == 0 %>
+          <div class="thumbnail" id="item0">
+    <% else %>
+          <div class="thumbnail">
+    <% end %>
+            <a href="#"></a>
+            <div class="Caption"><%= "Item#{num}" %></div>
+          </div>
+  <% if (num % @items_per_row) == (@items_per_row-1) %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+</div>
+

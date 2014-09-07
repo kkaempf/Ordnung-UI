@@ -19,3 +19,7 @@ Then /^I should see the contents of directory "([^"]*)"$/ do |arg1| #"
   end
 end
   
+Then(/^I should see many thumbnails$/) do
+  expect(page).to have_selector(".thumbnail")
+end
+    
