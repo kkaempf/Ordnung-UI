@@ -1,9 +1,11 @@
 class DashboardController < ApplicationController
   def home
+    session[:zoom] ||= "100"
+    logger.info "Zoom #{session[:zoom].inspect}"
   end
 
   def redraw
-    @zoom = (session[:zoom] ||= "100").to_i
+    @zoom = session[:zoom].to_i
     @width = session[:width].to_i
     @height = session[:height].to_i
     @item_width = @zoom # (session[:item_width] ||= "100").to_i

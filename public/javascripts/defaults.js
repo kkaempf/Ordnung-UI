@@ -1,6 +1,6 @@
 // defaults.js
 
-var zoom = 100;
+var zoom = 0;
 
 var set_thumbnail_size = function() {
   $('.thumbnail').css('width', zoom+"px");
@@ -30,7 +30,8 @@ var fill_dashboard = function(data) {
 }
 
 // redraw dashboard content
-var redraw_dashboard = function() {
+var redraw_dashboard = function(data) {
+  zoom = data.zoom;
   $.ajax('/dashboard/redraw', {
     success: fill_dashboard
   });
@@ -70,7 +71,6 @@ $( window ).ready(function() {
       log_size(true);
     }
   });
-  redraw_dashboard();
   // feed window size back to app
-  log_size(false);
+  log_size(true);
 });
