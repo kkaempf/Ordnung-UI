@@ -18,6 +18,8 @@ class DashboardController < ApplicationController
     @items_per_col = 1 if @items_per_col < 1
     logger.info "#{@item_horizontal} per item horizontal, #{@items_per_row} items per row"
     logger.info "#{@item_vertical} per item vertical, #{@items_per_col} items per col"
+    Item.limit(@items_per_row * @items_per_col)
+    @items = Item.all
     render :partial => "redraw"
   end
 

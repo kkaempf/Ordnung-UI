@@ -1,5 +1,6 @@
 <div id="dashboard_content">
-<% (@items_per_row * @items_per_col).times do |num| %>
+<% num = 0 %>
+<% @items.each do |item| %>
   <% if (num % @items_per_row) == 0 %>
     <% if num == 0 %>
       <div class="row" id="first_row">
@@ -13,13 +14,15 @@
     <% else %>
           <div class="thumbnail">
     <% end %>
-            <a href="#"></a>
-            <div class="Caption"><%= "Item#{num}" %></div>
+            <% thumb_file = "/" + item.thumb_file %>
+            <img src=<%= thumb_file %>/>
+            <div class="Caption"><%= item.name %></div>
           </div>
   <% if (num % @items_per_row) == (@items_per_row-1) %>
       </div>
     </div>
   <% end %>
+  <% num += 1 %>
 <% end %>
 </div>
 

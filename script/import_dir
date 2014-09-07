@@ -6,12 +6,27 @@
 #
 
 require 'rubygems'
+require 'fileutils'
+
+ENV['RAILS_ENV'] ||= 'development'
+$toplevel = File.expand_path(File.join(File.dirname(__FILE__), ".."))
+require File.join($toplevel, "config", "environment")
 
 def usage msg=nil
   $stderr.puts msg if msg
   $stderr.puts "Usage: import_dir [-r] <directory>"
   $stderr.puts "\t-r recursive"
   exit 1
+end
+
+def create_thumbnail item
+  orig_file = File.join(item.dir, item.name)
+  thumb_dir = File.join($toplevel, "public", item.thumb_dir)
+  thumb_file = File.join($toplevel, "public", item.thumb_file)
+  unless File.exist?(item.thumb_file)
+    FileUtils.mkdir_p thumb_dir
+    system "convert", orig_file, "-resize", "100x100^", "-gravity", "center", thumb_file
+  end
 end
 
 def import path, recursive
@@ -31,6 +46,9 @@ def import path, recursive
           fileextension = fileextension.first if fileextension.is_a? Array
         end
         item = Item.new(:name => f, :dir => dir)
+        if fileextension && fileextension.picture?
+          create_thumbnail item
+        end
         unless item.duplicate
           item.mimetype = fileextension.mimetype if fileextension
           item.save
@@ -42,9 +60,6 @@ def import path, recursive
     end # Dir.foreach
   end # Dir.chdir
 end
-
-ENV['RAILS_ENV'] ||= 'development'
-require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 
 dir = ARGV.shift
 recursive = false

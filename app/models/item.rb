@@ -38,6 +38,14 @@ class Item
     end
   end
 
+  def thumb_dir
+    @thumb_dir ||= File.join("thumbnails", self.checksum[0,2])
+  end
+
+  def thumb_file
+    thumb_file = File.join(self.thumb_dir, "#{self.checksum}.jpg")
+  end
+
   def to_s
     "#{self.name}:#{self.id}"
   end
