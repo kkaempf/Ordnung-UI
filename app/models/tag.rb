@@ -9,7 +9,7 @@ class Tag
   field :value, :type => String
 
   def to_s
-    self.value ? "Tag #{self.name}=#{self.value}" : "Tag #{self.name}"
+    self.value ? "#{self.name}=#{self.value}" : "#{self.name}"
   end
 
 end

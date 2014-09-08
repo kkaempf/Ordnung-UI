@@ -61,3 +61,11 @@ body {
   margin: 1px;
   padding: 1px;
 }
+
+.item-tag {
+  font-family: Consolas,monospace;
+  font-size: 0.8em;
+  background: #0c7fab;
+  margin: 1px;
+  padding: 1px;
+}
