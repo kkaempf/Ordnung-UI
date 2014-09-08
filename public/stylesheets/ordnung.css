@@ -36,6 +36,10 @@ body {
   font-size: 1.5em;
 }
 
+.glyph_separator {
+  width: 10px;
+}
+
 .thumbnail {
   float: left;
   border: 5px;

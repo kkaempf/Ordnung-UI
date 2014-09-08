@@ -25,7 +25,12 @@ var log_size = function(with_redraw) {
 
 // fill dashboard content
 var fill_dashboard = function(data) {
-  $('#dashboard_content').html(data);
+  if (data) {
+    $('#dashboard_content').html(data);
+  }
+  else {
+    console.log("Dashboard unchanged");
+  }
   set_thumbnail_size();
 }
 
@@ -59,9 +64,25 @@ $( window ).ready(function() {
     }
   );
   // make page elements clickable
+  $('#page_first').click(function() {
+    $.ajax('/dashboard/first_page', {
+      success: fill_dashboard
+    });
+  });
   $('#page_previous').click(function() {
+    $.ajax('/dashboard/previous_page', {
+      success: fill_dashboard
+    });
   });
   $('#page_next').click(function() {
+    $.ajax('/dashboard/next_page', {
+      success: fill_dashboard
+    });
+  });
+  $('#page_last').click(function() {
+    $.ajax('/dashboard/last_page', {
+      success: fill_dashboard
+    });
   });
   // make zoom elements clickable
   $('#zoom_in').click(function() {

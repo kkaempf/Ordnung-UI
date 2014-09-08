@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   get "dashboard/home"
+  get "dashboard/first_page"
+  get "dashboard/last_page"
+  get "dashboard/next_page"
+  get "dashboard/previous_page"
   get "dashboard/redraw"
   get "dashboard/right"
   get "dashboard/login"
