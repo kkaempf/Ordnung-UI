@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get "dashboard/login"
   get "dashboard/logout"
 
+  get "tag/activate/:name", to: 'tag#activate'
+
   get "directory" => "directory#index"
   post "directory/import"
 

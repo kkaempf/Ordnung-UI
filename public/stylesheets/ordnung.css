@@ -45,6 +45,11 @@ body {
   font-size: 1.5em;
 }
 
+.tag_glyph {
+  margin: 10px;
+  font-size: 1.2em;
+}
+
 .glyph_separator {
   font-size: 1.5em;
   width: 30px;
@@ -69,6 +74,10 @@ body {
   background: #c0c0c0;
   margin: 1px;
   padding: 1px;
+}
+
+.active-tag {
+  background: red;
 }
 
 .item-tag {

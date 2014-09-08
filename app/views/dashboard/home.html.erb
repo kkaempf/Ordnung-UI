@@ -1,7 +1,5 @@
 <% content_for :ordnung_right do %>
   <% Tag.all.each do |tag| %>
-    <span class="tag">
-      <%= "#{tag}" %>
-    </span>
+    <span class="tag"><%= "#{tag}" %></span>
   <% end %>
 <% end %>

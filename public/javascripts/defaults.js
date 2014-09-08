@@ -97,6 +97,21 @@ $( window ).ready(function() {
       log_size(true);
     }
   });
+  // make tags clickable
+  $('.tag').click(function() {
+    $('.active-tag').removeClass('active-tag');
+    $(this).addClass('active-tag');
+    $.ajax("/tag/activate/"+$(this).text());
+  });
+  // change mouse cursor over tags
+  $('.tag').hover(
+    function() { // enter
+      $('html,body').css('cursor', 'pointer');
+    },
+    function() { // leave
+      $('html,body').css('cursor', 'default');
+    }
+  );
   // feed window size back to app
   log_size(true);
 });
