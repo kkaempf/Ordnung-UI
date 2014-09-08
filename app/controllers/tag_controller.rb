@@ -18,5 +18,18 @@ class TagController < ApplicationController
     end
   end
   def remove
+    name,value = params[:name].split("=")
+    begin
+      tag = Tag.find_by(:name => name, :value => value)
+      items = Item.any_in(:tag_ids => [tag._id])
+      logger.info "Items with #{params[:name]}: #{items.count}"
+      items.each do |item|
+        item.tag_ids.delete(tag._id)
+        item.save
+      end
+      tag.destroy
+    rescue Mongoid::Errors::DocumentNotFound
+    end
+    render :nothing => true
   end
 end

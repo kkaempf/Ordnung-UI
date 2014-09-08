@@ -138,7 +138,16 @@ $( window ).ready(function() {
   });
   $('#tag_edit').click(function() {
   });
+  var remove_active_tag = function() {
+    $('.active-tag').remove();
+    log_size(true);
+  }
   $('#tag_remove').click(function() {
+    active = $('.active-tag').text();
+    console.log("Remove " + active);
+    $.ajax("/tag/remove/"+active, {
+      success: remove_active_tag
+    });
   });
   // feed window size back to app
   log_size(true);
