@@ -18,11 +18,7 @@
               <% thumb_file = "/" + item.thumb_file %>
               <img src=<%= thumb_file %>/>
             <% end %>
-            <div class="Caption">
-              <% item.tags.each do |tag| %>
-                <span class="item-tag"><%= tag.to_s %></span>
-              <% end %>
-            </div>
+            <div class="Caption"><% item.tags.each do |tag| %><span class="item-tag"><%= tag.to_s %></span><% end %></div>
           </div>
   <% if (num % @items_per_row) == (@items_per_row-1) %>
       </div>

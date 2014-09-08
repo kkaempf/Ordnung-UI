@@ -31,6 +31,26 @@ var log_size = function(with_redraw) {
   };
 };
 
+var start_edit_mode = function() {
+    // change mouse cursor over thumbnails
+    $('.thumbnail').hover(
+      function() { // enter
+        $('html,body').css('cursor', 'crosshair');
+      },
+      function() { // leave
+        $('html,body').css('cursor', 'default');
+      }
+    ).unbind('click').click(function(event) {
+      console.log("Add tag to thumbnail");
+    });
+};
+
+var end_edit_mode = function() {
+  $('.thumbnail').unbind('mouseenter mouseleave click').click(function(event) {
+    console.log("Show thumbnail");
+  });
+}
+
 // fill dashboard content
 var fill_dashboard = function(data) {
   if (data) {
@@ -38,6 +58,12 @@ var fill_dashboard = function(data) {
   }
   else {
     console.log("Dashboard unchanged");
+  }
+  if ($('.edit-mode').exists()) {
+    start_edit_mode();
+  }
+  else {
+    end_edit_mode();
   }
   set_thumbnail_size();
 }
@@ -144,19 +170,11 @@ $( window ).ready(function() {
     edit_mode = $('.edit-mode')
     if (edit_mode.exists()) {
       edit_mode.removeClass('edit-mode');
-      $('.thumbnail').unbind('mouseenter mouseleave');
+      end_edit_mode();
     }
     else {
       $(this).addClass('edit-mode');
-      // change mouse cursor over thumbnails
-      $('.thumbnail').hover(
-        function() { // enter
-          $('html,body').css('cursor', 'crosshair');
-        },
-        function() { // leave
-          $('html,body').css('cursor', 'default');
-        }
-      );
+      start_edit_mode();
     }
   });
   var remove_active_tag = function() {
