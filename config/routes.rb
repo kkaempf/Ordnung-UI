@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   get "tag/activate/:name", to: 'tag#activate'
   get "tag/add/:name", to: 'tag#add'
+  get "tag/item/:id", to: 'tag#item'
   get "tag/remove/:name", to: 'tag#remove'
 
   get "directory" => "directory#index"

@@ -41,7 +41,8 @@ var start_edit_mode = function() {
         $('html,body').css('cursor', 'default');
       }
     ).unbind('click').click(function(event) {
-      console.log("Add tag to thumbnail");
+      console.log("Add tag to " + this.id);
+      $.ajax("/tag/item/" + this.id);
     });
 };
 
