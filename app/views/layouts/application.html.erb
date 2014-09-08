@@ -47,7 +47,7 @@
           <span class="glyphicon glyphicon-backward page_glyph" id="page_previous"></span>
           <span class="glyphicon glyphicon-forward page_glyph" id="page_next"></span>
           <span class="glyphicon glyphicon-step-forward page_glyph" id="page_last"></span>
-          <span class="glyph_separator"></span>
+          <span class="glyph_separator"> </span>
           <span class="glyphicon glyphicon-zoom-in zoom_glyph" id="zoom_in"></span>
           <span class="glyphicon glyphicon-zoom-out zoom_glyph" id="zoom_out"></span>
         </span>
@@ -55,7 +55,7 @@
       <div id="dashboard_content"></div>
     </div>
     <div class="col-md-2" id="ordnung_right">
-      <h2>Tags</h2>
+      <%= yield :ordnung_right %>
     </div>
   </div>
 </body>

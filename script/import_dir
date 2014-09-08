@@ -12,6 +12,8 @@ ENV['RAILS_ENV'] ||= 'development'
 $toplevel = File.expand_path(File.join(File.dirname(__FILE__), ".."))
 require File.join($toplevel, "config", "environment")
 
+$tags = Array.new
+
 def usage msg=nil
   $stderr.puts msg if msg
   $stderr.puts "Usage: import_dir [-r] <directory>"
@@ -45,15 +47,20 @@ def import path, recursive
           fileextension = Fileextension.find_by(:name => extname[1..-1].downcase) # remove leading dot from extname
           fileextension = fileextension.first if fileextension.is_a? Array
         end
-        item = Item.new(:name => f, :dir => dir)
+        item = Item.find_or_create_by(:name => f, :dir => dir)
         if fileextension && fileextension.picture?
           create_thumbnail item
         end
-        unless item.duplicate
-          item.mimetype = fileextension.mimetype if fileextension
-          item.save
-          puts "#{f} #{item}"
+        unless $tags.empty?
+          $tags.each do |s|
+            tag_s,value_s = s.split "="
+            tag = Tag.find_or_create_by(:name => tag_s, :value => value_s)
+            item.tags << tag
+          end
         end
+        item.mimetype = fileextension.mimetype if fileextension
+        item.save
+        puts "#{f} #{item}"
       else
         $stderr.puts "Not imported: #{f}"
       end
@@ -61,12 +68,20 @@ def import path, recursive
   end # Dir.chdir
 end
 
-dir = ARGV.shift
 recursive = false
-if dir == "-r"
-  recursive = true
-  dir = ARGV.shift
+
+until ARGV.empty? do
+  arg = ARGV.shift
+  case arg
+  when "-r"
+    recursive = true
+  when "-t"
+    $tags << ARGV.shift
+  else
+    dir = arg
+  end
 end
+
 usage "Must specify directory" unless dir
 
 usage "#{dir} is not a directory" unless File.directory?(dir)

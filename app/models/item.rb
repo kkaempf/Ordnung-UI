@@ -14,6 +14,7 @@ class Item
   belongs_to :mimetype
   field :dir, :type => String
   field :content
+  has_and_belongs_to_many :tags, inverse_of: nil
 
 #  attr_accessible :content, :name, :dir
 
