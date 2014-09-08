@@ -14,12 +14,21 @@ body {
 }
 
 #ordnung_right {
+  padding: 0px 0px 0px 5px;
 }
 
 .dashboard_header {
   float: left;
   font-size: 200%;
   font-weight: bold;
+  padding: 0px 0px 0px 20px;
+}
+
+.tags_header {
+  float: left;
+  font-size: 200%;
+  font-weight: bold;
+  padding: 0px 0px 0px 5px;
 }
 
 .navigation_glyphs {

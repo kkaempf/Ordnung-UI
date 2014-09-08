@@ -54,8 +54,13 @@
       </div>
       <div id="dashboard_content"></div>
     </div>
-    <div class="col-md-2" id="ordnung_right">
-      <%= yield :ordnung_right %>
+    <div class="col-md-2">
+      <div class="row">
+        <span class="tags_header">Tags</span>
+      </div>
+      <div class="row" id="ordnung_right">
+        <%= yield :ordnung_right %>
+      </div>
     </div>
   </div>
 </body>
