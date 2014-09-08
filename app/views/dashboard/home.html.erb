@@ -1,6 +1,10 @@
 <% content_for :ordnung_right do %>
   <span class="new-tag"><input type="text" id="new-tag-input"/></span>
   <% Tag.all.each do |tag| %>
-    <span class="tag"><%= "#{tag}" %></span>
+    <% if tag.to_s == session[:active_tag] %>
+      <span class="tag active-tag"><%= "#{tag}" %></span>
+    <% else %>
+      <span class="tag"><%= "#{tag}" %></span>
+    <% end %>
   <% end %>
 <% end %>
