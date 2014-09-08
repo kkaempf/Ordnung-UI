@@ -112,6 +112,19 @@ $( window ).ready(function() {
       $('html,body').css('cursor', 'default');
     }
   );
+  $('#tag_add').click(function() {
+    $('.new-tag').css('display', 'inline');
+  });
+  $('#new-tag-input').keydown(function(e) {
+    if (e.keyCode == 13) {
+      $.ajax("/tag/add/" + $(this).val());
+      $('.new-tag').css('display', 'none');
+    }
+  });
+  $('#tag_edit').click(function() {
+  });
+  $('#tag_remove').click(function() {
+  });
   // feed window size back to app
   log_size(true);
 });

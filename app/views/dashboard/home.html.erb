@@ -1,4 +1,5 @@
 <% content_for :ordnung_right do %>
+  <span class="new-tag"><input type="text" id="new-tag-input"/></span>
   <% Tag.all.each do |tag| %>
     <span class="tag"><%= "#{tag}" %></span>
   <% end %>

@@ -87,3 +87,8 @@ body {
   margin: 1px;
   padding: 1px;
 }
+
+.new-tag {
+  display: none;
+  font-family: Consolas,monospace;
+}
