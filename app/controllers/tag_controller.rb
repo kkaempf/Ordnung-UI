@@ -11,7 +11,12 @@ class TagController < ApplicationController
   end
   def add
     name,value = params[:name].split("=")
-    Tag.find_or_create_by(:name => name, :value => value)
-    render :nothing => true
+    begin
+      Tag.find_by(:name => name, :value => value)
+      render({ :nothing => true })
+    rescue Mongoid::Errors::DocumentNotFound
+      Tag.create(:name => name, :value => value)
+      render :json => { :html => "<span class='tag'>#{params[:name]}</span>" }
+    end
   end
 end

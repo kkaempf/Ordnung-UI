@@ -2,6 +2,10 @@
 
 var zoom = 0;
 
+var ajax_error = function(xhr, status, error) {
+  console.log ("Ajax error, status: " + status);
+}
+
 var set_thumbnail_size = function() {
   $('.thumbnail').css('width', zoom+"px");
   $('.thumbnail').css('height', zoom+"px");
@@ -97,27 +101,38 @@ $( window ).ready(function() {
       log_size(true);
     }
   });
-  // make tags clickable
-  $('.tag').click(function() {
-    $('.active-tag').removeClass('active-tag');
-    $(this).addClass('active-tag');
-    $.ajax("/tag/activate/"+$(this).text());
-  });
-  // change mouse cursor over tags
-  $('.tag').hover(
-    function() { // enter
-      $('html,body').css('cursor', 'pointer');
-    },
-    function() { // leave
-      $('html,body').css('cursor', 'default');
-    }
-  );
+  var define_tag_functions = function() {
+    // make tags clickable
+    $('.tag').click(function() {
+      $('.active-tag').removeClass('active-tag');
+      $(this).addClass('active-tag');
+      $.ajax("/tag/activate/"+$(this).text());
+    });
+    // change mouse cursor over tags
+    $('.tag').hover(
+      function() { // enter
+        $('html,body').css('cursor', 'pointer');
+      },
+      function() { // leave
+        $('html,body').css('cursor', 'default');
+      }
+    );
+  };
+  define_tag_functions();
   $('#tag_add').click(function() {
     $('.new-tag').css('display', 'inline');
   });
+  var show_added_tag = function(data) {
+    if (data.html) {
+      $('.new-tag').after(data.html);
+      define_tag_functions();
+    }
+  }
   $('#new-tag-input').keydown(function(e) {
     if (e.keyCode == 13) {
-      $.ajax("/tag/add/" + $(this).val());
+      $.ajax("/tag/add/" + $(this).val(), {
+        success: show_added_tag
+      });
       $('.new-tag').css('display', 'none');
     }
   });
