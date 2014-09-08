@@ -92,3 +92,7 @@ body {
   display: none;
   font-family: Consolas,monospace;
 }
+
+.edit-mode {
+  background: orange;
+}

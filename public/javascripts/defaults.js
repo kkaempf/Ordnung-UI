@@ -2,6 +2,10 @@
 
 var zoom = 0;
 
+$.fn.exists = function () {
+  return this.length !== 0;
+}
+
 var ajax_error = function(xhr, status, error) {
   console.log ("Ajax error, status: " + status);
 }
@@ -137,6 +141,23 @@ $( window ).ready(function() {
     }
   });
   $('#tag_edit').click(function() {
+    edit_mode = $('.edit-mode')
+    if (edit_mode.exists()) {
+      edit_mode.removeClass('edit-mode');
+      $('.thumbnail').unbind('mouseenter mouseleave');
+    }
+    else {
+      $(this).addClass('edit-mode');
+      // change mouse cursor over thumbnails
+      $('.thumbnail').hover(
+        function() { // enter
+          $('html,body').css('cursor', 'crosshair');
+        },
+        function() { // leave
+          $('html,body').css('cursor', 'default');
+        }
+      );
+    }
   });
   var remove_active_tag = function() {
     $('.active-tag').remove();

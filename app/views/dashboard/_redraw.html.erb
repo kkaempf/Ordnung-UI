@@ -1,4 +1,3 @@
-<div id="dashboard_content">
 <% num = 0 %>
 <% items = Item.skip((@page-1) * @items_per_page).limit(@items_per_page) %>
 <% items.each do |item| %>
@@ -31,5 +30,3 @@
   <% end %>
   <% num += 1 %>
 <% end %>
-</div>
-
