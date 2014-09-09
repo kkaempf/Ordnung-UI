@@ -25,7 +25,7 @@ class Item
   before_save :compute_checksum
 
   def id
-    self.checksum
+    "#{self.checksum},#{self.size}"
   end
 
   def checksum
