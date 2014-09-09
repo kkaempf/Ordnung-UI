@@ -4,8 +4,21 @@
 class TagController < ApplicationController
   # mark tag as active
   def activate
-    session[:active_tag] = params[:name]
-    logger.info "Activate #{session[:active_tag]}"
+    tags = session[:active_tags];
+    if tags && !tags.empty?
+      tags << ",#{params[:name]}"
+    else
+      tags = params[:name]
+    end
+    session[:active_tags] = tags
+    logger.info "Active #{session[:active_tags]}"
+    render :nothing => true
+  end
+  def deactivate
+    tags = session[:active_tags].split(",")
+    tags.delete(params[:name])
+    session[:active_tags] = tags.join(",")
+    logger.info "New active #{session[:active_tags]}"
     render :nothing => true
   end
   # add new tag
@@ -38,21 +51,26 @@ class TagController < ApplicationController
   # change active tag in item
   def item
     id = BSON::ObjectId.from_string(params[:id])
-    begin
-      tag = Tag.find_by(:name => session[:active_tag])
+    tags = []
+    session[:active_tag].split(",").each do |tag|
       begin
-        item = Item.find(id)
+        tags = Tag.find_by(:name => tag)
+      rescue Mongoid::Errors::DocumentNotFound
+        logger.error "Active tag '#{tag}' does not exist"
+      end
+    end
+    begin
+      item = Item.find(id)
+      tags.each do |tag|
         if (item.tag_ids.include? tag._id)
           item.tag_ids.delete(tag._id)
         else
           item.tags << tag
         end
-        item.save
-      rescue Mongoid::Errors::DocumentNotFound
-        logger.error "Item id #{id} does not exist"
       end
+      item.save
     rescue Mongoid::Errors::DocumentNotFound
-      logger.error "Tag '#{session[:active_tag]}' does not exist"
+      logger.error "Item id #{id} does not exist"
     end
     render :nothing => true
   end

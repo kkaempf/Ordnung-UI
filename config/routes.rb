@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get "dashboard/logout"
 
   get "tag/activate/:name", to: 'tag#activate'
+  get "tag/deactivate/:name", to: 'tag#deactivate'
   get "tag/add/:name", to: 'tag#add'
   get "tag/item/:id", to: 'tag#item'
   get "tag/remove/:name", to: 'tag#remove'

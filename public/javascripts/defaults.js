@@ -135,9 +135,14 @@ $( window ).ready(function() {
   var define_tag_functions = function() {
     // make tags clickable
     $('.tag').click(function() {
-      $('.active-tag').removeClass('active-tag');
-      $(this).addClass('active-tag');
-      $.ajax("/tag/activate/"+$(this).text());
+      if ($(this).hasClass('active-tag')) {
+        $(this).removeClass('active-tag');
+        $.ajax("/tag/deactivate/"+$(this).text());
+      }
+      else {
+        $(this).addClass('active-tag');
+        $.ajax("/tag/activate/"+$(this).text());
+      }
     });
     // change mouse cursor over tags
     $('.tag').hover(
