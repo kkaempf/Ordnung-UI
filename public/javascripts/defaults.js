@@ -156,7 +156,8 @@ $( window ).ready(function() {
   };
   define_tag_functions();
   $('#tag_add').click(function() {
-    $('.new-tag').css('display', 'inline');
+    $('.new-tag').css('display', 'block');
+    $('#new-tag-input').val("")
   });
   var show_added_tag = function(data) {
     if (data.html) {
