@@ -46,8 +46,9 @@ body {
 }
 
 .tag_glyph {
-  margin: 10px;
+  margin: 6px;
   font-size: 1.2em;
+  padding: 4px 0px 0px 0px;
 }
 
 .glyph_separator {
