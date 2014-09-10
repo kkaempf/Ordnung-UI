@@ -4,6 +4,9 @@
 class TagsController < ApplicationController
   # show tag cloud
   def home
+    if session[:active_tags]
+      @active = session[:active_tags].split(",")
+    end
     render :partial => 'home'
   end
   # mark tag as active
@@ -19,10 +22,12 @@ class TagsController < ApplicationController
     render :nothing => true
   end
   def deactivate
-    tags = session[:active_tags].split(",")
-    tags.delete(params[:name])
-    session[:active_tags] = tags.join(",")
-    logger.info "New active #{session[:active_tags]}"
+    if session[:active_tags]
+      tags = session[:active_tags].split(",")
+      tags.delete(params[:name])
+      session[:active_tags] = tags.join(",")
+      logger.info "New active #{session[:active_tags]}"
+    end
     render :nothing => true
   end
   # add new tag

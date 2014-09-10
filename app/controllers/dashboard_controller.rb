@@ -34,7 +34,22 @@ class DashboardController < ApplicationController
   end
 
   def redraw
+    filter = Item
+    if session[:active_tags]
+      active = session[:active_tags].split(",")
+      tag_ids = []
+      begin
+        active.each do |name|
+          name,value = name.split("=")
+          tag = Tag.find_by(:name => name, :value => value)
+          tag_ids << tag._id
+        end
+        filter = Item.all_in(:tag_ids => tag_ids)
+      rescue Mongoid::Errors::DocumentNotFound
+      end
+    end
     _page_calculate
+    @items = filter.skip((@page-1) * @items_per_page).limit(@items_per_page)
     render :partial => "redraw"
   end
 
