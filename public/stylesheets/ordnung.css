@@ -28,11 +28,12 @@ body {
   float: left;
   font-size: 200%;
   font-weight: bold;
-  padding: 0px 0px 0px 5px;
+  padding: 0px 0px 0px 4px;
 }
 
 .navigation_glyphs {
   float: right;
+  height: 40px;
 }
 
 .zoom_glyph {
@@ -46,9 +47,17 @@ body {
 }
 
 .tag_glyph {
-  margin: 6px;
+  height: 100%;
+  margin: 6px 6px 8px 6px;
   font-size: 1.2em;
   padding: 4px 0px 0px 0px;
+}
+
+.edit-mode, .filter-mode {
+  font-size: 2em;
+  margin: 2px 0px 0px 0px;
+  padding: 0px;
+  top: 6px;
 }
 
 #tag_add {
@@ -99,6 +108,3 @@ body {
   font-family: Consolas,monospace;
 }
 
-.edit-mode {
-  background: orange;
-}

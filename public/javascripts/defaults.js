@@ -102,7 +102,6 @@ $( window ).resize(function() {
 });
 
 var load_tags = function(data) {
-  console.log('load_tags with ' + data);
   $('#tags_content').html(data);
   var define_tag_functions = function() {
     // make tags clickable
@@ -148,16 +147,23 @@ var load_tags = function(data) {
       $('.new-tag').css('display', 'none');
     }
   });
-  $('#tag_edit').click(function() {
+  $('#tag_filter').click(function() {
+    console.log('filter!');
     edit_mode = $('.edit-mode')
     if (edit_mode.exists()) {
       edit_mode.removeClass('edit-mode');
       end_edit_mode();
     }
-    else {
-      $(this).addClass('edit-mode');
-      start_edit_mode();
+    $(this).addClass('filter-mode');
+  });
+  $('#tag_edit').click(function() {
+    console.log('edit!');
+    filter_mode = $('.filter-mode')
+    if (filter_mode.exists()) {
+      filter_mode.removeClass('filter-mode');
     }
+    $(this).addClass('edit-mode');
+    start_edit_mode();
   });
   var remove_active_tag = function() {
     $('.active-tag').remove();
