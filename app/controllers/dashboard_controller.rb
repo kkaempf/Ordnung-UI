@@ -35,8 +35,10 @@ class DashboardController < ApplicationController
 
   def redraw
     filter = Item
-    if session[:active_tags]
-      active = session[:active_tags].split(",")
+    sat = session[:active_tags]
+    logger.info "Redraw active: #{sat.inspect}"
+    if sat && !sat.empty?
+      active = sat.split(",")
       tag_ids = []
       begin
         active.each do |name|
@@ -50,6 +52,7 @@ class DashboardController < ApplicationController
     end
     _page_calculate
     @items = filter.skip((@page-1) * @items_per_page).limit(@items_per_page)
+    logger.info "Redraw active: #{sat.inspect}"
     render :partial => "redraw"
   end
 

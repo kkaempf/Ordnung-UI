@@ -101,6 +101,14 @@ $( window ).resize(function() {
   }, 250);
 });
 
+// redraw dashboard after set of active tags was changed in filter-mode
+var filter_mode_redraw = function() {
+  if (!$('.edit-mode').exists()) {
+    console.log("MUST! REDRAW!");
+    log_size(true);
+  }
+};
+
 var load_tags = function(data) {
   $('#tags_content').html(data);
   var define_tag_functions = function() {
@@ -108,11 +116,15 @@ var load_tags = function(data) {
     $('.tag').click(function() {
       if ($(this).hasClass('active-tag')) {
         $(this).removeClass('active-tag');
-        $.ajax("/tag/deactivate/"+$(this).text());
+        $.ajax("/tag/deactivate/"+$(this).text(), {
+          success: filter_mode_redraw
+        });
       }
       else {
         $(this).addClass('active-tag');
-        $.ajax("/tag/activate/"+$(this).text());
+        $.ajax("/tag/activate/"+$(this).text(), {
+          success: filter_mode_redraw
+        });
       }
     });
     // change mouse cursor over tags
@@ -153,6 +165,7 @@ var load_tags = function(data) {
     if (edit_mode.exists()) {
       edit_mode.removeClass('edit-mode');
       end_edit_mode();
+      log_size(true); // must redraw
     }
     $(this).addClass('filter-mode');
   });

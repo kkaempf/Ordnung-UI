@@ -61,9 +61,10 @@ class TagsController < ApplicationController
   def item
     id = BSON::ObjectId.from_string(params[:id])
     tags = []
-    session[:active_tag].split(",").each do |tag|
+    session[:active_tags].split(",").each do |tag|
       begin
-        tags = Tag.find_by(:name => tag)
+        name,value = tag.split("=")
+        tags = Tag.find_by(:name => name, :value => value)
       rescue Mongoid::Errors::DocumentNotFound
         logger.error "Active tag '#{tag}' does not exist"
       end
