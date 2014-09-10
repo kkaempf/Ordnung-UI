@@ -101,6 +101,77 @@ $( window ).resize(function() {
   }, 250);
 });
 
+var load_tags = function(data) {
+  console.log('load_tags with ' + data);
+  $('#tags_content').html(data);
+  var define_tag_functions = function() {
+    // make tags clickable
+    $('.tag').click(function() {
+      if ($(this).hasClass('active-tag')) {
+        $(this).removeClass('active-tag');
+        $.ajax("/tag/deactivate/"+$(this).text());
+      }
+      else {
+        $(this).addClass('active-tag');
+        $.ajax("/tag/activate/"+$(this).text());
+      }
+    });
+    // change mouse cursor over tags
+    $('.tag').hover(
+      function() { // enter
+        $('html,body').css('cursor', 'pointer');
+      },
+      function() { // leave
+        $('html,body').css('cursor', 'default');
+      }
+    );
+  };
+  define_tag_functions();
+  $('#tag_add').click(function() {
+    $('.new-tag').css('display', 'block');
+    $('#new-tag-input').val("")
+  });
+  var show_added_tag = function(data) {
+    if (data.html) {
+      $('.new-tag').after(data.html);
+      define_tag_functions();
+    }
+  }
+  $('#new-tag-input').keydown(function(e) {
+    if (e.keyCode == 13) {
+      val = $.trim($(this).val());
+      if (val && val.length > 0) {
+        $.ajax("/tag/add/" + val, {
+          success: show_added_tag
+        });
+      }
+      $('.new-tag').css('display', 'none');
+    }
+  });
+  $('#tag_edit').click(function() {
+    edit_mode = $('.edit-mode')
+    if (edit_mode.exists()) {
+      edit_mode.removeClass('edit-mode');
+      end_edit_mode();
+    }
+    else {
+      $(this).addClass('edit-mode');
+      start_edit_mode();
+    }
+  });
+  var remove_active_tag = function() {
+    $('.active-tag').remove();
+    log_size(true);
+  }
+  $('#tag_remove').click(function() {
+    active = $('.active-tag').text();
+    console.log("Remove " + active);
+    $.ajax("/tag/remove/"+active, {
+      success: remove_active_tag
+    });
+  });
+};
+
 // start app
 $( window ).ready(function() {
   // change mouse cursor over zoom elements
@@ -146,68 +217,8 @@ $( window ).ready(function() {
       log_size(true);
     }
   });
-  var define_tag_functions = function() {
-    // make tags clickable
-    $('.tag').click(function() {
-      if ($(this).hasClass('active-tag')) {
-        $(this).removeClass('active-tag');
-        $.ajax("/tag/deactivate/"+$(this).text());
-      }
-      else {
-        $(this).addClass('active-tag');
-        $.ajax("/tag/activate/"+$(this).text());
-      }
-    });
-    // change mouse cursor over tags
-    $('.tag').hover(
-      function() { // enter
-        $('html,body').css('cursor', 'pointer');
-      },
-      function() { // leave
-        $('html,body').css('cursor', 'default');
-      }
-    );
-  };
-  define_tag_functions();
-  $('#tag_add').click(function() {
-    $('.new-tag').css('display', 'block');
-    $('#new-tag-input').val("")
-  });
-  var show_added_tag = function(data) {
-    if (data.html) {
-      $('.new-tag').after(data.html);
-      define_tag_functions();
-    }
-  }
-  $('#new-tag-input').keydown(function(e) {
-    if (e.keyCode == 13) {
-      $.ajax("/tag/add/" + $(this).val(), {
-        success: show_added_tag
-      });
-      $('.new-tag').css('display', 'none');
-    }
-  });
-  $('#tag_edit').click(function() {
-    edit_mode = $('.edit-mode')
-    if (edit_mode.exists()) {
-      edit_mode.removeClass('edit-mode');
-      end_edit_mode();
-    }
-    else {
-      $(this).addClass('edit-mode');
-      start_edit_mode();
-    }
-  });
-  var remove_active_tag = function() {
-    $('.active-tag').remove();
-    log_size(true);
-  }
-  $('#tag_remove').click(function() {
-    active = $('.active-tag').text();
-    console.log("Remove " + active);
-    $.ajax("/tag/remove/"+active, {
-      success: remove_active_tag
-    });
+  $.ajax('/tags', {
+    success: load_tags
   });
   // feed window size back to app
   log_size(true);

@@ -51,6 +51,11 @@ body {
   padding: 4px 0px 0px 0px;
 }
 
+#tag_add {
+  margin: 2px;
+  padding: 0px 0px 0px 0px;
+}
+
 .glyph_separator {
   font-size: 1.5em;
   width: 30px;

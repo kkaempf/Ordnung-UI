@@ -20,12 +20,13 @@ Rails.application.routes.draw do
   #
   # Tag routes
   #
-  get "tag/activate/:name", to: 'tag#activate'
-  get "tag/deactivate/:name", to: 'tag#deactivate'
+  get "tags" => 'tags#home'
+  get "tag/activate/:name", to: 'tags#activate'
+  get "tag/deactivate/:name", to: 'tags#deactivate'
   # add new tag
-  get "tag/add/:name", to: 'tag#add'
+  get "tag/add/:name", to: 'tags#add'
   # remove tag
-  get "tag/remove/:name", to: 'tag#remove'
+  get "tag/remove/:name", to: 'tags#remove'
   
   #
   # Item routes

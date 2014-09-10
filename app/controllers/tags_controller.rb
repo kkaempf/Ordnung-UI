@@ -1,7 +1,11 @@
 #
-# TagController
+# TagsController
 #
-class TagController < ApplicationController
+class TagsController < ApplicationController
+  # show tag cloud
+  def home
+    render :partial => 'home'
+  end
   # mark tag as active
   def activate
     tags = session[:active_tags];
