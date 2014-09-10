@@ -17,6 +17,10 @@ body {
   padding: 0px 0px 0px 5px;
 }
 
+#empty-dashboard {
+  font-size: 5em;
+}
+
 .dashboard_header {
   float: left;
   font-size: 200%;
