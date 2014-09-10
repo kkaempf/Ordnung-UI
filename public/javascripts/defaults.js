@@ -32,23 +32,30 @@ var log_size = function(with_redraw) {
 };
 
 var start_edit_mode = function() {
-    // change mouse cursor over thumbnails
-    $('.thumbnail').hover(
-      function() { // enter
-        $('html,body').css('cursor', 'crosshair');
-      },
-      function() { // leave
-        $('html,body').css('cursor', 'default');
-      }
-    ).unbind('click').click(function(event) {
-      console.log("Add tag to " + this.id);
-      $.ajax("/tag/item/" + this.id);
-    });
+  // change mouse cursor over thumbnails
+  $('.thumbnail').hover(
+    function() { // enter
+      $('html,body').css('cursor', 'crosshair');
+    },
+    function() { // leave
+      $('html,body').css('cursor', 'default');
+    }
+  ).unbind('click').click(function(event) {
+    console.log("Add tag to " + this.id);
+    $.ajax("/tag/item/" + this.id);
+  });
 };
 
 var end_edit_mode = function() {
-  $('.thumbnail').unbind('mouseenter mouseleave click').click(function(event) {
-    console.log("Show thumbnail");
+  $('.thumbnail').hover(
+    function() { // enter
+      $('html,body').css('cursor', 'pointer');
+    },
+    function() { // leave
+      $('html,body').css('cursor', 'default');
+    }
+  ).unbind('click').click(function(event) {
+    $.ajax("/item/" + this.id);
   });
 }
 

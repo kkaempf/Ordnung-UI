@@ -2,7 +2,21 @@
 # RESTful controller for Items
 #
 class ItemsController < ApplicationController
-  def new
+  def view
+    logger.info "View Item #{params[:name]}"
+    item = Item.find_by(:name => params[:name])
+    if item.content
+      logger.info "Item has content"
+      # Craft http response of item.mimetype + item.content
+      render :nothing => true
+    else
+      # symlink public/assets/current -> item.directory/item.filename    
+      current = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "public", "images", "current"))
+      File.delete(current) rescue nil    
+      File.symlink(File.join(item.directory, item.filename), current)
+      logger.info "Item has symlink #{current}"
+      redirect_to '/images/current', :status => 307
+    end
   end
   
   def create

@@ -22,7 +22,7 @@ def usage msg=nil
 end
 
 def create_thumbnail item
-  orig_file = File.join(item.dir, item.name)
+  orig_file = File.join(item.directory, item.filename)
   thumb_dir = File.join($toplevel, "public", item.thumb_dir)
   thumb_file = File.join($toplevel, "public", item.thumb_file)
   unless File.exist?(item.thumb_file)
@@ -47,7 +47,7 @@ def import path, recursive
           fileextension = Fileextension.find_by(:name => extname[1..-1].downcase) # remove leading dot from extname
           fileextension = fileextension.first if fileextension.is_a? Array
         end
-        item = Item.find_or_create_by(:name => f, :dir => dir)
+        item = Item.find_or_create_by(:filename => f, :directory => dir)
         if fileextension && fileextension.picture?
           create_thumbnail item
         end

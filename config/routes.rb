@@ -2,29 +2,44 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  #
+  # Dashboard routes
+  #
   get "dashboard/home"
+  # navigation
   get "dashboard/first_page"
   get "dashboard/last_page"
   get "dashboard/next_page"
   get "dashboard/previous_page"
   get "dashboard/redraw"
-  get "dashboard/right"
+
+  # authentication
   get "dashboard/login"
   get "dashboard/logout"
 
+  #
+  # Tag routes
+  #
   get "tag/activate/:name", to: 'tag#activate'
   get "tag/deactivate/:name", to: 'tag#deactivate'
+  # add new tag
   get "tag/add/:name", to: 'tag#add'
-  get "tag/item/:id", to: 'tag#item'
+  # remove tag
   get "tag/remove/:name", to: 'tag#remove'
+  
+  #
+  # Item routes
+  #
+
+  # display specific item
+  get "item/:name" => 'items#view'
 
   get "directory" => "directory#index"
   post "directory/import"
 
+  # feedback viewport size and zoom level to app
   get "resize/:width/:height/:zoom", to: 'resize#resize'
 
-  resources :items
-  
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
