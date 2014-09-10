@@ -23,11 +23,14 @@ var log_size = function(with_redraw) {
   uri = "/resize/" + ordnung_middle_w + "/" + ordnung_middle_h + "/" + zoom;
   if (with_redraw) {
     $.ajax(uri, {
-      success: redraw_dashboard
+      success: redraw_dashboard,
+      error: ajax_error
     });
   }
   else {
-    $.ajax(uri);
+    $.ajax(uri, {
+      error: ajax_error
+    });
   };
 };
 
@@ -52,7 +55,9 @@ var start_edit_mode = function() {
     }
   ).unbind('click').click(function(event) {
     console.log("Add tag to " + this.id);
-    $.ajax("/tag/item/" + this.id);
+    $.ajax("/tag/item/" + this.id, {
+      error: ajax_error
+    });
   });
 };
 
@@ -66,7 +71,8 @@ var end_edit_mode = function() {
     }
   ).unbind('click').click(function(event) {
     $.ajax("/item/" + this.id, {
-      success: set_dashboard_content
+      success: set_dashboard_content,
+      error: ajax_error
     });
   });
 }
@@ -87,7 +93,8 @@ var fill_dashboard = function(data) {
 var redraw_dashboard = function(data) {
   zoom = data.zoom;
   $.ajax('/dashboard/redraw', {
-    success: fill_dashboard
+    success: fill_dashboard,
+    error: ajax_error
   });
 }
 
@@ -104,7 +111,6 @@ $( window ).resize(function() {
 // redraw dashboard after set of active tags was changed in filter-mode
 var filter_mode_redraw = function() {
   if (!$('.edit-mode').exists()) {
-    console.log("MUST! REDRAW!");
     log_size(true);
   }
 };
@@ -117,13 +123,15 @@ var load_tags = function(data) {
       if ($(this).hasClass('active-tag')) {
         $(this).removeClass('active-tag');
         $.ajax("/tag/deactivate/"+$(this).text(), {
-          success: filter_mode_redraw
+          success: filter_mode_redraw,
+          error: ajax_error
         });
       }
       else {
         $(this).addClass('active-tag');
         $.ajax("/tag/activate/"+$(this).text(), {
-          success: filter_mode_redraw
+          success: filter_mode_redraw,
+          error: ajax_error
         });
       }
     });
@@ -153,14 +161,14 @@ var load_tags = function(data) {
       val = $.trim($(this).val());
       if (val && val.length > 0) {
         $.ajax("/tag/add/" + val, {
-          success: show_added_tag
+          success: show_added_tag,
+          error: ajax_error
         });
       }
       $('.new-tag').css('display', 'none');
     }
   });
   $('#tag_filter').click(function() {
-    console.log('filter!');
     edit_mode = $('.edit-mode')
     if (edit_mode.exists()) {
       edit_mode.removeClass('edit-mode');
@@ -170,7 +178,6 @@ var load_tags = function(data) {
     $(this).addClass('filter-mode');
   });
   $('#tag_edit').click(function() {
-    console.log('edit!');
     filter_mode = $('.filter-mode')
     if (filter_mode.exists()) {
       filter_mode.removeClass('filter-mode');
@@ -184,9 +191,9 @@ var load_tags = function(data) {
   }
   $('#tag_remove').click(function() {
     active = $('.active-tag').text();
-    console.log("Remove " + active);
     $.ajax("/tag/remove/"+active, {
-      success: remove_active_tag
+      success: remove_active_tag,
+      error: ajax_error
     });
   });
 };
@@ -205,22 +212,26 @@ $( window ).ready(function() {
   // make page elements clickable
   $('#page_first').click(function() {
     $.ajax('/dashboard/first_page', {
-      success: fill_dashboard
+      success: fill_dashboard,
+      error: ajax_error
     });
   });
   $('#page_previous').click(function() {
     $.ajax('/dashboard/previous_page', {
-      success: fill_dashboard
+      success: fill_dashboard,
+      error: ajax_error
     });
   });
   $('#page_next').click(function() {
     $.ajax('/dashboard/next_page', {
-      success: fill_dashboard
+      success: fill_dashboard,
+      error: ajax_error
     });
   });
   $('#page_last').click(function() {
     $.ajax('/dashboard/last_page', {
-      success: fill_dashboard
+      success: fill_dashboard,
+      error: ajax_error
     });
   });
   // make zoom elements clickable
@@ -237,7 +248,8 @@ $( window ).ready(function() {
     }
   });
   $.ajax('/tags', {
-    success: load_tags
+    success: load_tags,
+    error: ajax_error
   });
   // feed window size back to app
   log_size(true);
