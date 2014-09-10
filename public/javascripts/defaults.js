@@ -31,6 +31,16 @@ var log_size = function(with_redraw) {
   };
 };
 
+// set dashboard content
+var set_dashboard_content = function(data) {
+  if (data) {
+    $('#dashboard_content').html(data);
+  }
+  else {
+    console.log("Dashboard unchanged");
+  }
+};
+
 var start_edit_mode = function() {
   // change mouse cursor over thumbnails
   $('.thumbnail').hover(
@@ -55,18 +65,15 @@ var end_edit_mode = function() {
       $('html,body').css('cursor', 'default');
     }
   ).unbind('click').click(function(event) {
-    $.ajax("/item/" + this.id);
+    $.ajax("/item/" + this.id, {
+      success: set_dashboard_content
+    });
   });
 }
 
 // fill dashboard content
 var fill_dashboard = function(data) {
-  if (data) {
-    $('#dashboard_content').html(data);
-  }
-  else {
-    console.log("Dashboard unchanged");
-  }
+  set_dashboard_content(data);
   if ($('.edit-mode').exists()) {
     start_edit_mode();
   }

@@ -10,12 +10,25 @@ class ItemsController < ApplicationController
       # Craft http response of item.mimetype + item.content
       render :nothing => true
     else
+      # symlink real file into /images to make it browser-accessible
+      # choose item-specific path to prevent browser from aliasing different items
+      toplevel = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "public", "images"))
+      if (session[:current] && !session[:current].empty?)
+        # remove old symlink
+        current = File.join(toplevel, "current:#{session[:current]}")
+        # ensure session[:current] is sane and does not contain .. to escape the path
+        if (File.dirname(current) == toplevel)
+          File.delete(current) rescue nil
+        end
+      end
       # symlink public/assets/current -> item.directory/item.filename    
-      current = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "public", "images", "current"))
-      File.delete(current) rescue nil    
-      File.symlink(File.join(item.directory, item.filename), current)
+      session[:current] = params[:name]
+      current = "current:#{session[:current]}"
+      File.symlink(File.join(item.directory, item.filename), File.join(toplevel, current))
       logger.info "Item has symlink #{current}"
-      redirect_to '/images/current', :status => 307
+      @src = "/images/#{current}"
+      @alt = item.filename
+      render :partial => 'image'
     end
   end
   
