@@ -23,6 +23,9 @@ module Ordnung
     def self.[] name
       self.content[name]
     end
+    def self.database
+      self.content["database"] || abort("No database defined in config.yml")      
+    end
   end
 
 end

@@ -3,6 +3,7 @@ require 'yaml'
 TOPLEVEL = File.expand_path("..", File.dirname(__FILE__))
 
 require_relative "ordnung/config"
+require_relative "ordnung/database"
 require_relative "ordnung/logger"
 require_relative "ordnung/version"
 
