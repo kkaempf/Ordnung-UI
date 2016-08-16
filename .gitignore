@@ -1,7 +1,1 @@
-.bundle
-db/*.sqlite3
-log/*
-tmp/
 *~
-public/thumbnails
-public/images/current*

@@ -1,9 +1,0 @@
-<span class="new-tag"><input type="text" id="new-tag-input"/></span>
-<% Tag.all.each do |tag| %>
-  <% if @active.include? tag.to_s %>
-    <span class="tag active-tag"><%= "#{tag}" %></span>
-  <% else %>
-    <span class="tag"><%= "#{tag}" %></span>
-  <% end %>
-<% end %>
-<span class="glyphicon glyphicon-plus" id="tag_add"></span>

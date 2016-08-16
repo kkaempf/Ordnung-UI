@@ -1,0 +1,34 @@
+!!!
+%html
+  %head
+    != css :bootstrap, :media => 'screen'
+    != css :bootstrap_table, :media => 'screen'
+    != css :morris, :media => 'screen'
+    != css :material, :media => 'screen'
+    != css :customcss, :media => 'screen'
+    %meta{:charset => "utf-8"}
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+    %title #{@title}
+    %link{:href => "/images/favicon.ico", :rel => "shortcut icon"}
+  %body
+    %nav.navbar.navbar-default.navbar-static-top{:role => 'navigation'}
+      .container
+        .navbar-header
+          %a.navbar-brand{:href => '/'} #{@title}
+        #navbar.navbar-collapse.collapse
+          %ul.nav.navbar-nav.pull-right
+            %li
+              %a.dropdown-toggle{:role => 'button', :data => {:toggle => 'dropdown'}, :href => '/'}
+                Trello
+                %span.caret
+              %ul.dropdown-menu{:role => 'menu'}
+                %li
+                  %a{:href => "/import"} Import
+                %li
+                  %a{:href => "/export"} Export
+            %li
+              %a.dropdown-toggle{:role => 'button', :href => '/help'}
+                Help
+    = yield
+    :javascript
+      $('.collapse').collapse();

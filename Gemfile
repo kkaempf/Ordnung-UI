@@ -1,26 +1,10 @@
-source 'http://rubygems.org'
+source "https://rubygems.org"
 
-DM_VERSION    = '~> 1.1.0'
-  
-gem 'rails', '~> 4.1.0'
-
-gem 'bson_ext'
-gem 'mongoid', '~> 4.0.0'
-gem 'activeresource'
-
-# Bundle gems for the local environment. Make sure to
-# put test-only gems in this group so their generators
-# and rake tasks are available in development mode:
-# group :development, :test do
-#   gem 'webrat'
-# end
-
-group :test do
-  gem 'rspec-rails'
-  gem 'capybara'
-  gem 'database_cleaner'
-  gem 'cucumber-rails', :require => false
-  gem 'cucumber'
-  gem 'spork'
-  gem 'launchy'    # So you can do Then show me the page
-end
+# back-end
+gem "trollop", "2.1.2"
+gem "nokogiri", "1.6.6.4"
+# front-end
+gem "sinatra-base", "1.4.7"
+gem "sinatra-assetpack", "0.3.5"
+gem "sinatra-advanced-routes", "0.5.3"
+gem "haml", "4.0.7"

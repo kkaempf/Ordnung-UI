@@ -1,0 +1,21 @@
+!!!
+.container-fluid
+  %div.col-md-12
+    %div.panel.panel-default.col-md-12
+      %div.panel-heading
+        %h3.panel-title.title{:align => "left"}
+          Ordnung
+      %div.panel-body
+        #index
+
+!= js :jquery
+!= js :jqueryplugin
+!= js :bootstrap
+!= js :bootstrap_table
+!= js :morris
+!= js :customjs
+
+:javascript
+  $(document).ready(function(){
+    index(#{@colors.to_json});
+  });
