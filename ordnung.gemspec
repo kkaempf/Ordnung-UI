@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.homepage                = "http://github.com/kkaempf/Ordnung"
   s.license                 = "MIT"
   s.add_dependency("trollop", ["2.1.2"])
-  s.add_dependency("sinatra-base", ["1.4.7"])
+  s.add_dependency("sinatra", ["1.4.7"])
   s.add_dependency("sinatra-assetpack", ["0.3.5"])
   s.add_dependency("sinatra-advanced-routes", ["0.5.3"])
   s.add_dependency("haml", ["4.0.7"])
