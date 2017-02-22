@@ -1,6 +1,11 @@
+#
+# ordnung/database/elasticsearch
+#
+# Elasticsearch database backend for Ordnung
+
+require "elasticsearch"
+
 module Ordnung
-  require "elasticsearch"
-  INDEX = "Ordnung"
   TYPE = "ordnung"
   class Database
     private
@@ -25,29 +30,35 @@ module Ordnung
           # create or update mapping
           begin
             # try create, might fail with 'index_already_exists_exception'
-            @elasticsupport.client.indices.create index: INDEX,
+            @client.indices.create index: @index,
               body: {
                 mappings: {
                   type => { properties: properties }
                 }
               }
-          rescue Elasticsearch::Transport::Transport::Errors::BadRequest => arg
-            raise unless arg.message =~ /index_already_exists_exception/
-            # update mapping
-            @elasticsupport.client.indices.put_mapping index: INDEX, type: type,
-              body: {
-                type => { properties: properties }
-              }
+            rescue Elasticsearch::Transport::Transport::Errors::BadRequest => e
+              if e.message =~ /index_already_exists_exception/
+                # update mapping
+                @client.indices.put_mapping index: @index, type: type,
+                body: {
+                  type => { properties: properties }
+                }
+              else
+                Logger.error "Can't create index #{@index.inspect}: #{e}"
+                raise
+              end
           end
         end
       end
     public
     def initialize
       @client = Elasticsearch::Client.new # log: true
+      @index = Config.elasticsearch['index']
+      puts "Elasticsearch index #{@index.inspect}"
       provide_mappings_to_elasticsearch _mappings
     end
     def write body
-      @client.index index: INDEX, type: TYPE, body: body
+      @client.index index: @index, type: TYPE, body: body
 #     puts body.inspect
     end
   end
