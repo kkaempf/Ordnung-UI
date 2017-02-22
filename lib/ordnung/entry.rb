@@ -67,6 +67,7 @@ module Ordnung
       @data[:hash] = @hash
       raise "Entry without mime type during save" unless @mimetype
       @data[:mimetype] = @mimetype
+      @data[:tags] = @tags
       ::Ordnung.database.write @data
     end
   end
