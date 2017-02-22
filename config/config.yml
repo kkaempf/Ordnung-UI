@@ -7,3 +7,10 @@ port: # Specify a port where you can reach the webinterface, or (default) 4567
 
 # see lib/ordnung/database
 database: elasticsearch
+
+elasticsearch:
+  index: "ordnung"
+
+mimetypes:
+  - mime.types
+  - yml: text/plain
