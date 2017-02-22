@@ -25,18 +25,19 @@ module Ordnung
           logger.error "Unsupported exclude_pattern #{exclude_pattern.inspect}"
         end
       end
-      puts "Import from #{from.inspect}" if DEBUG
+#      puts "Import from #{from.inspect}" if DEBUG
       begin
         stat = File.stat(from)
-        if stat.readable?
-          return _import_directory from if stat.directory?
-          return _import_file path, entry if stat.file?
-          logger.error "Not a file or directory: #{from.inspect}"
-        else
-          logger.error "Unreadable: #{from.inspect}"
-        end
       rescue Exception => e
-        logger.error "Can't stat #{from.inspect}: #{e}"
+        logger.error "Can't stat #{from.inspect}: #{e} @ #{e.backtrace[0]}"
+        return
+      end
+      if stat.readable?
+        return _import_directory from if stat.directory?
+        return _import_file path, entry if stat.file?
+        logger.error "Not a file or directory: #{from.inspect}"
+      else
+        logger.error "Unreadable: #{from.inspect}"
       end
       nil
     end
@@ -45,7 +46,7 @@ private
     # import directory
     #
     def _import_directory path
-      puts "Importing directory #{path}" if DEBUG
+#      puts "Importing directory #{path}" if DEBUG
       Dir.open path do |dir|
         dir.each do |entry|
           next if entry == "."
@@ -60,6 +61,12 @@ private
     #
     def _import_file path, entry = nil
       puts "Importing file #{path}/#{entry}" if DEBUG
+      Dir.chdir path do
+        entry = Entry.new entry
+        entry.tags = path.split File::SEPARATOR
+        puts "Entry: #{entry}"
+        entry.save
+      end
     end
   end
 end
