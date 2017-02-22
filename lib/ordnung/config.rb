@@ -23,8 +23,9 @@ module Ordnung
     def self.[] name
       self.content[name]
     end
-    def self.database
-      self.content["database"] || abort("No database defined in config.yml")      
+    def self.method_missing(name, *args, &block)
+#      puts "Config.#{name}: #{self.content[name.to_s]}"
+      self.content[name.to_s] || abort("No #{name} defined in config.yml")      
     end
   end
 
