@@ -5,13 +5,14 @@ require File.join(File.expand_path("..", File.dirname(__FILE__)),"lib","ordnung"
 
 opts = Trollop::options do
   # keep 'short' options in sorted order
-  opt :import, "Import files or directories",                              :short => 'i'
-  opt :server, "Start Ordnung webinterface",                               :short => 's'
+  opt :import, "Import files or directories",  :short => 'i', :type => :string
+  opt :server, "Start Ordnung webinterface",   :short => 's'
+  opt :debug,  "Debug",                        :short => 'd'
 end
 
 abort("try ordnung -h") if opts.all?{|k,v| v.is_a?(FalseClass)}
 
-debug = opts[:debug]
+DEBUG = opts[:debug_given]
 
 if opts[:server_given]
   if Ordnung::Config.database.nil?
@@ -26,13 +27,15 @@ if opts[:server_given]
   end
 end
 
+ordnung = Ordnung::Ordnung.new
+
 opts.each_pair do |key,val|
+#  puts "Opt #{key.inspect} : #{val.inspect}" if DEBUG
+  next unless val
+  next if key == :debug
+  next if key == :debug_given
   case key
   when :import
-    if val
-      puts "Importing"
-    end
-  else
-    STDERR.puts "Nothing to do"
+    ordnung.import val
   end
 end
