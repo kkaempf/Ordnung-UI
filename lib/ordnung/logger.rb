@@ -7,6 +7,18 @@ module Ordnung
 
   class Logger < ::Logger
     attr_reader :logname, :logfile
+    def self.error msg
+      ::Ordnung.logger.error msg
+    end
+    def self.warn msg
+      ::Ordnung.logger.warn msg
+    end
+    def self.info msg
+      ::Ordnung.logger.info msg
+    end
+    def self.debug msg
+      ::Ordnung.logger.debug msg
+    end
     def initialize
       @logname = Config["logfile"]
       @logfile = nil
