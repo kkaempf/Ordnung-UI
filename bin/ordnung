@@ -19,7 +19,7 @@ if opts[:server_given]
     abort("Configure a database, there is nothing to be shown")
   else
     begin
-      `#{File.join(File.expand_path("..", File.dirname(__FILE__)),"bin","app")} #{debug}`
+      `#{File.join(File.expand_path("..", File.dirname(__FILE__)),"bin","app")} #{DEBUG}`
     rescue Interrupt
       sleep 2
       exit
