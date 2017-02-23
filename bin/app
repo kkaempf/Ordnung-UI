@@ -41,12 +41,8 @@ class App < Sinatra::Base
     js :bootstrap, "/js/bootstrap/bootstrap.min.js", [
       "/js/bootstrap/bootstrap.js"
     ]
-    js :bootstrap_table, "/js/bootstrap/bootstrap-table.min.js", [
-      "/js/bootstrap/bootstrap-table.js"
-    ]
-    js :morris, "/js/morris/morris.min.js", [
-      "/js/morris/morris.js",
-      "/js/morris/raphael.js"
+    js :bootstrap_table, "/js/bootstrap-table/bootstrap-table.min.js", [
+      "/js/bootstrap-table/bootstrap-table.js"
     ]
     js :customjs, [
       "/customjs/index.js",
@@ -56,11 +52,8 @@ class App < Sinatra::Base
     css :bootstrap, "/css/bootstrap/#{theme}/bootstrap.min.css", [
       "/css/bootstrap/#{theme}/bootstrap.css"
     ]
-    css :bootstrap_table, "/css/bootstrap/bootstrap-table.min.css", [
-      "/css/bootstrap/bootstrap-table.css"
-    ]
-    css :morris, [
-      "/css/morris/morris.css"
+    css :bootstrap_table, "/css/bootstrap-table/bootstrap-table.min.css", [
+      "/css/bootstrap-table/bootstrap-table.css"
     ]
     css :material, "/css/material/material.min.css", [
       "/css/material/material.css"
