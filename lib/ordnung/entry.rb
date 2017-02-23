@@ -6,7 +6,7 @@
 
 module Ordnung
   class Entry
-    attr_reader :hash, :location, :mimetype, :tags
+    attr_reader :hash, :location, :mimetype, :tags, :id
     #
     # Create new entry in memory
     # Must call entry.save! to put it in database
@@ -64,11 +64,19 @@ module Ordnung
     #
     def save
       raise "Unhashed entry during save" unless @hash
-      @data[:hash] = @hash
       raise "Entry without mime type during save" unless @mimetype
       @data[:mimetype] = @mimetype
       @data[:tags] = @tags
-      ::Ordnung.database.write @data
+      @data[:locations] ||= Array.new
+      unless @data[:locations].include? @location
+        @data[:locations] << @location
+      end
+      if ::Ordnung.database.read @hash
+        ::Ordnung.database.update @hash, @data
+      else
+        ::Ordnung.database.create @hash, @data
+      end
+      @hash
     end
   end
 end

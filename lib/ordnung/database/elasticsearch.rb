@@ -13,9 +13,8 @@ module Ordnung
         {
           TYPE => {
             tags:          { type: 'string', index: 'not_analyzed' },
-            name:          { type: 'string', index: 'not_analyzed' },
-            type:          { type: 'string', index: 'not_analyzed' },
-            path:          { type: 'string', index: 'not_analyzed' }
+            mimetype:      { type: 'string', index: 'not_analyzed' },
+            locations:     { type: 'string', index: 'not_analyzed' },
           }
         }
       end
@@ -57,9 +56,47 @@ module Ordnung
       puts "Elasticsearch index #{@index.inspect}"
       provide_mappings_to_elasticsearch _mappings
     end
-    def write body
-      @client.index index: @index, type: TYPE, body: body
-#     puts body.inspect
+    #
+    # CRUD basics
+    #
+    def create id, body
+      obj = @client.create index: @index, type: TYPE, id: id, body: body
+      puts "Create: #{obj.inspect}"
+      obj['_id']
+    end
+    def update id, body
+      begin
+        obj = @client.index index: @index, type: TYPE, id: id, body: body
+        puts "Update: #{obj.inspect}"
+        obj['_id']
+      rescue Elasticsearch::Transport::Transport::Errors::BadRequest => e
+        Logger.error "Elasticsearch update failed for id #{id} body #{body.inspect}"
+        Logger.error "  with #{e}"
+        nil
+      end
+    end
+    def search hash
+      query = ""
+      hash.each do |k,v|
+        query << " and " unless query.empty?
+        query << "#{k}:#{v}"
+      end
+      obj = @client.search index: @index, q: query
+      puts "Search: #{obj.inspect}"
+      obj['_id']
+    end
+    def read id
+      begin
+        obj = @client.get index: @index, type: TYPE, id: id
+        puts "Read: #{obj.inspect}"
+        obj['_id']
+      rescue Elasticsearch::Transport::Transport::Errors::NotFound
+        nil
+      end
+    end
+    def delete id
+      obj = @client.delete index: @index, type: TYPE, id: id
+      obj['_id']
     end
   end
 end

@@ -9,11 +9,12 @@ module Ordnung
     EXCLUDE_PATTERNS = [ ".git", /.*~/ ]
 
     def import path, entry = nil
+      path = File.expand_path(path)
       if entry
         from = File.join(path, entry)
       else
         from = path
-        entry = path
+        entry = File.basename(path)
       end
       EXCLUDE_PATTERNS.each do |exclude_pattern|
         case exclude_pattern
@@ -34,7 +35,7 @@ module Ordnung
       end
       if stat.readable?
         return _import_directory from if stat.directory?
-        return _import_file path, entry if stat.file?
+        return _import_file File.join(path, entry) if stat.file?
         logger.error "Not a file or directory: #{from.inspect}"
       else
         logger.error "Unreadable: #{from.inspect}"
@@ -59,14 +60,13 @@ private
     #
     # import file
     #
-    def _import_file path, entry = nil
-      puts "Importing file #{path}/#{entry}" if DEBUG
-      Dir.chdir path do
-        entry = Entry.new entry
-        entry.tags = path.split File::SEPARATOR
-        puts "Entry: #{entry}"
-        entry.save
-      end
+    def _import_file path
+      puts "Importing file #{path}" if DEBUG
+      entry = Entry.new path
+      entry.tags = path.split File::SEPARATOR
+      entry.tags.shift if entry.tags[0].empty?
+      puts "Entry: #{entry}"
+      entry.save
     end
   end
 end
