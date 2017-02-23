@@ -40,7 +40,7 @@ class App < Sinatra::Base
       "/js/react/react-dom.js"
     ]
     js :babel, [
-      "/js/babel/babel.min.js"
+      "/js/babel-standalone/babel.min.js"
     ]
     js :bootstrap, "/js/bootstrap/bootstrap.min.js", [
       "/js/bootstrap/bootstrap.js"
