@@ -34,7 +34,7 @@ class App < Sinatra::Base
     js :jquery, "/js/jquery/jquery-3.1.1.min.js", [
       "/js/jquery/jquery-3.1.1.js"
     ]
-    js :reactjs, "/js/react/react.min.js", [
+    js :react, "/js/react/react.min.js", [
       "/js/react/react.js",
       "/js/react/react-dom.js"
     ]
