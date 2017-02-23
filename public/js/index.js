@@ -10,6 +10,6 @@ function span_class_value(value, klass) {
 }
 
 function index(colors){
-  $.getJSON("/json/ordnung", function (json) {
+  $.getJSON("/ordnung/index", function (json) {
   });
 }

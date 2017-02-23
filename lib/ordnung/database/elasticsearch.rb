@@ -75,15 +75,34 @@ module Ordnung
         nil
       end
     end
+    def index
+      search Hash.new
+    end
     def search hash
       query = ""
       hash.each do |k,v|
         query << " and " unless query.empty?
         query << "#{k}:#{v}"
       end
-      obj = @client.search index: @index, q: query
-      puts "Search: #{obj.inspect}"
-      obj['_id']
+      query = { match_all: {} } if query.empty?
+      puts "Query #{query.inspect}"
+      begin
+        obj = @client.search index: @index, q: query
+        total = obj["hits"]["total"] rescue 0
+        if total > 0
+          res = obj["hits"]["hits"].map do |hit|
+            source = hit["_source"]
+            source["hash"] = hit["_id"]
+            source
+          end
+        else
+          res = []
+        end
+        puts "Search: #{res.inspect}"
+        res
+      rescue Exception => e
+        Logger.error "Elasticsearch.search(#{hash.inspect}) failed: #{e}"
+      end
     end
     def read id
       begin
