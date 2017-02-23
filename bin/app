@@ -27,6 +27,7 @@ class App < Sinatra::Base
   assets {
     serve "/js",        from: "../public/vendor/js"
     serve "/customjs",  from: "../public/js"
+    serve "/customjsx", from: "../public/jsx"
     serve "/css",       from: "../public/vendor/css"
     serve "/customcss", from: "../public/css"
     serve "/images",    from: "../public/images"
@@ -37,6 +38,9 @@ class App < Sinatra::Base
     js :react, "/js/react/react.min.js", [
       "/js/react/react.js",
       "/js/react/react-dom.js"
+    ]
+    js :babel, [
+      "/js/babel/babel.min.js"
     ]
     js :bootstrap, "/js/bootstrap/bootstrap.min.js", [
       "/js/bootstrap/bootstrap.js"
@@ -85,6 +89,9 @@ class App < Sinatra::Base
       end
     end
 
+    def entry
+      @entry ||= Ordnung.database.read(params[:id]) rescue halt(404)
+    end
   end
 
 
@@ -108,7 +115,7 @@ class App < Sinatra::Base
     haml :help
   end
 
-  get "/ordnung/index" do
+  get "/ordnung/index", provides: :json do
     items = Ordnung.database.index
     items.to_json
   end
