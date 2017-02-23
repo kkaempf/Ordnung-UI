@@ -20,5 +20,5 @@ Gem::Specification.new do |s|
   s.add_dependency("sinatra-assetpack", ["0.3.5"])
   s.add_dependency("sinatra-advanced-routes", ["0.5.3"])
   s.add_dependency("haml", ["4.0.7"])
-  s.add_dependency("elasticsearch", ["2.0.0"])
+  s.add_dependency("elasticsearch", ["5.0.3"])
 end
