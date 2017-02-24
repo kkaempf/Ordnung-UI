@@ -87,13 +87,13 @@ module Ordnung
       query = { match_all: {} } if query.empty?
       puts "Query #{query.inspect}"
       begin
-        obj = @client.search index: @index, q: query
-        total = obj["hits"]["total"] rescue 0
+        obj = @client.search index: @index, stored_fields: [], q: query
+        puts "@client.search #{obj.inspect}"
+        hits = obj["hits"]
+        total = hits["total"] rescue 0
         if total > 0
-          res = obj["hits"]["hits"].map do |hit|
-            source = hit["_source"]
-            source["hash"] = hit["_id"]
-            source
+          res = hits["hits"].map do |hit|
+            hit["_id"]
           end
         else
           res = []
