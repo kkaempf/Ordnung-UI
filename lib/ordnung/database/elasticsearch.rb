@@ -112,7 +112,7 @@ module Ordnung
       begin
         obj = @client.get index: @index, type: TYPE, id: id
         puts "Read: #{obj.inspect}"
-        obj['_id']
+        obj['_source']
       rescue Elasticsearch::Transport::Transport::Errors::NotFound
         nil
       end
