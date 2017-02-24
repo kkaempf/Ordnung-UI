@@ -35,7 +35,7 @@ module Ordnung
       end
       if stat.readable?
         return _import_directory from if stat.directory?
-        return _import_file File.join(path, entry) if stat.file?
+        return _import_file stat, File.join(path, entry) if stat.file?
         logger.error "Not a file or directory: #{from.inspect}"
       else
         logger.error "Unreadable: #{from.inspect}"
@@ -60,11 +60,9 @@ private
     #
     # import file
     #
-    def _import_file path
+    def _import_file stat, path
       puts "Importing file #{path}" if DEBUG
-      entry = Entry.new path
-      entry.tags = path.split File::SEPARATOR
-      entry.tags.shift if entry.tags[0].empty?
+      entry = Entry.new stat, path
       puts "Entry: #{entry}"
       entry.save
     end

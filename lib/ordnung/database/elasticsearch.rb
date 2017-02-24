@@ -12,9 +12,13 @@ module Ordnung
       def _mappings
         {
           TYPE => {
-            tags:          { type: 'string', index: 'not_analyzed' },
-            mimetype:      { type: 'string', index: 'not_analyzed' },
+            ctime:         { type: 'date'                          },
             locations:     { type: 'string', index: 'not_analyzed' },
+            mimetype:      { type: 'string', index: 'not_analyzed' },
+            mtime:         { type: 'date'                          },
+            name:          { type: 'string', index: 'not_analyzed' },
+            size:          { type: 'long'                          },
+            tags:          { type: 'string', index: 'not_analyzed' },
           }
         }
       end
