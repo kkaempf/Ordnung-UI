@@ -115,5 +115,10 @@ class App < Sinatra::Base
     items.to_json
   end
 
+  get "/ordnung/entry/:hash", provides: :json do
+    entry = Ordnung.database.read params["hash"]
+    entry.to_json
+  end
+
   run! if app_file == $0
 end
