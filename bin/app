@@ -26,7 +26,6 @@ class App < Sinatra::Base
 
   assets {
     serve "/js",        from: "../public/vendor/js"
-    serve "/customjs",  from: "../public/js"
     serve "/customjsx", from: "../public/jsx"
     serve "/css",       from: "../public/vendor/css"
     serve "/customcss", from: "../public/css"
@@ -47,10 +46,6 @@ class App < Sinatra::Base
     ]
     js :bootstrap_table, "/js/bootstrap-table/bootstrap-table.min.js", [
       "/js/bootstrap-table/bootstrap-table.js"
-    ]
-    js :customjs, [
-      "/customjs/index.js",
-      "/customjs/ordnung.js"
     ]
 
     css :bootstrap, "/css/bootstrap/#{theme}/bootstrap.min.css", [

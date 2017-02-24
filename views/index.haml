@@ -11,11 +11,7 @@
 != js :jquery
 != js :react
 != js :babel
+%script{:type => "text/babel", :src => "jsx/entry.jsx"}
+%script{:type => "text/babel", :src => "jsx/index.jsx"}
 != js :bootstrap
 != js :bootstrap_table
-!= js :customjs
-
-:javascript
-  $(document).ready(function(){
-    index(#{@colors.to_json});
-  });
