@@ -36,6 +36,10 @@ opts.each_pair do |key,val|
   next if key == :debug_given
   case key
   when :import
-    ordnung.import val
+    begin
+      ordnung.import val
+    rescue Exception => e
+      $stderr.puts "Import failed: #{e}"
+    end
   end
 end
