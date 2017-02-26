@@ -19,7 +19,12 @@ module Ordnung
   end
 
   def database
-    @@database ||= Database.new
+    begin
+      @@database ||= Database.new
+    rescue Faraday::ConnectionFailed
+      Logger.error "Can't connect to database"
+      raise "Database not running"
+    end
   end
 
   def mimetype

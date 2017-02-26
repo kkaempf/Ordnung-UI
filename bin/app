@@ -110,14 +110,28 @@ class App < Sinatra::Base
     haml :help
   end
 
+  get "/error" do
+    haml :error
+  end
+
   get "/ordnung/index", provides: :json do
-    items = Ordnung.database.index
-    items.to_json
+    begin
+      items = Ordnung.database.index
+      items.to_json
+    rescue Exception => e
+      Ordnung.logger.error "Error getting index: #{e}"
+      redirect to('/error'), e
+    end
   end
 
   get "/ordnung/entry/:hash", provides: :json do
-    entry = Ordnung.database.read params["hash"]
-    entry.to_json
+    begin
+      entry = Ordnung.database.read params["hash"]
+      entry.to_json
+    rescue Exception => e
+      Ordnung.logger.error "Error getting entry (#{hash}): #{e}"
+      redirect to('/error'), e
+    end
   end
 
   run! if app_file == $0
