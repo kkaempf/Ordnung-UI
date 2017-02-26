@@ -91,7 +91,7 @@ module Ordnung
       query = { match_all: {} } if query.empty?
       puts "Query #{query.inspect}"
       begin
-        obj = @client.search index: @index, stored_fields: [], q: query
+        obj = @client.search index: @index, q: query
         puts "@client.search #{obj.inspect}"
         hits = obj["hits"]
         total = hits["total"] rescue 0
@@ -106,6 +106,7 @@ module Ordnung
         res
       rescue Exception => e
         Logger.error "Elasticsearch.search(#{hash.inspect}) failed: #{e}"
+        raise
       end
     end
     def read id
