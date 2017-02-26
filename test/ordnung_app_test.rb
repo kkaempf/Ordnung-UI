@@ -1,9 +1,3 @@
-ENV['RACK_ENV'] = 'test'
-
-$LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), ".."))
-load 'bin/app'
-require 'rspec'
-require 'rack/test'
 
 describe 'Ordnung App' do
   include Rack::Test::Methods
@@ -15,7 +9,7 @@ describe 'Ordnung App' do
   it "displays home page" do 
     get '/'
 
-    expect(last_response.body).to include("Hello world!")
+    expect(last_response.body).to include("Ordnung")
   end
 
   it "displays help page" do 
