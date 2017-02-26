@@ -117,7 +117,7 @@ class App < Sinatra::Base
   get "/ordnung/index", provides: :json do
     begin
       items = Ordnung.database.index
-      items.to_json
+      return items.to_json
     rescue Exception => e
       Ordnung.logger.error "Error getting index: #{e}"
       redirect to('/error'), e
@@ -127,7 +127,7 @@ class App < Sinatra::Base
   get "/ordnung/entry/:hash", provides: :json do
     begin
       entry = Ordnung.database.read params["hash"]
-      entry.to_json
+      return entry.to_json
     rescue Exception => e
       Ordnung.logger.error "Error getting entry (#{hash}): #{e}"
       redirect to('/error'), e
