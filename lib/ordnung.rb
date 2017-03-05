@@ -1,6 +1,8 @@
 require 'yaml'
 
-TOPLEVEL = File.expand_path("..", File.dirname(__FILE__))
+unless defined?(TOPLEVEL)
+  TOPLEVEL = File.expand_path("..", File.dirname(__FILE__))
+end
 
 require_relative "ordnung/config"
 require_relative "ordnung/database"
