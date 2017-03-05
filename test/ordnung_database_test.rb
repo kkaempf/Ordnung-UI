@@ -35,5 +35,16 @@ describe 'Database' do
       id3 = @db.create '3', { name: 'three' }
       expect(id3).to be == '3'
     end
+    it "reads data" do
+      data = @db.read('3')
+      expect(data['name']).to be == 'three'
+      data = @db.read('2')
+      expect(data['name']).to be == 'two'
+      data = @db.read('1')
+      expect(data['name']).to be == 'one'
+    end
+    it "finds data" do
+      expect(@db.index.count).to be == 3
+    end
   end
 end
