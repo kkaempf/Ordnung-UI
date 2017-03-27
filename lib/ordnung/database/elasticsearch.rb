@@ -86,16 +86,17 @@ module Ordnung
       search Hash.new
     end
     def search hash
+      puts "search #{hash.inspect}"
       query = ""
       hash.each do |k,v|
         query << " and " unless query.empty?
         query << "#{k}:#{v}"
       end
       query = { match_all: {} } if query.empty?
-#      puts "Query #{query.inspect}"
+      puts "Query #{query.inspect}"
       begin
         obj = @client.search index: @index, q: query
-#        puts "@client.search #{obj.inspect}"
+        puts "@client.search #{obj.inspect}"
         hits = obj["hits"]
         total = hits["total"] rescue 0
         if total > 0
