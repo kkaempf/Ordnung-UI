@@ -8,10 +8,10 @@
       %div.panel-body
         #index
 
-!= js :jquery
-!= js :react
-!= js :babel
+%script{ src: "/assets/jquery/js/jquery-3.1.1.min.js"}
+%script{ src: "/assets/react/js/react.min.js"}
+%script{ src: "/assets/babel-standalone/js/babel.min.js"}
 %script{:type => "text/babel", :src => "jsx/entry.jsx"}
 %script{:type => "text/babel", :src => "jsx/index.jsx"}
-!= js :bootstrap
-!= js :bootstrap_table
+%script{ src: "/assets/bootstrap/js/bootstrap.min.js"}
+%script{ src: "/assets/bootstrap_table/js/bootstrap-table.min.js"}

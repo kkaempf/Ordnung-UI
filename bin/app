@@ -1,8 +1,10 @@
 #!/usr/bin/env ruby
 
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 require "sinatra/base"
-require "sinatra/assetpack"
-require "sinatra/advanced_routes"
+require "sprockets"
 require "haml"
 require "json"
 require "time"
@@ -12,7 +14,9 @@ $:.unshift File.expand_path(File.join(File.dirname(__FILE__), ".."))
 require "lib/ordnung"
 
 class App < Sinatra::Base
-  register Sinatra::AdvancedRoutes
+  set :environment, Sprockets::Environment.new
+  environment.append_path "assets/stylesheets"
+  environment.append_path "assets/javascripts"
 
   ROOT_PATH = File.join(File.expand_path("..", File.dirname(__FILE__)))
   self.set :root, File.join(ROOT_PATH, "lib")
@@ -21,49 +25,6 @@ class App < Sinatra::Base
   set :bind, "0.0.0.0"
   set :port, Ordnung::Config["port"] || 4567
   theme = Ordnung::Config["theme"] || "default"
-
-  register Sinatra::AssetPack
-
-  assets {
-    serve "/js",        from: "../public/vendor/js"
-    serve "/customjsx", from: "../public/jsx"
-    serve "/css",       from: "../public/vendor/css"
-    serve "/customcss", from: "../public/css"
-    serve "/images",    from: "../public/images"
-
-    js :jquery, "/js/jquery/jquery-3.1.1.min.js", [
-      "/js/jquery/jquery-3.1.1.js"
-    ]
-    js :react, "/js/react/react.min.js", [
-      "/js/react/react.js",
-      "/js/react/react-dom.js"
-    ]
-    js :babel, [
-      "/js/babel-standalone/babel.min.js"
-    ]
-    js :bootstrap, "/js/bootstrap/bootstrap.min.js", [
-      "/js/bootstrap/bootstrap.js"
-    ]
-    js :bootstrap_table, "/js/bootstrap-table/bootstrap-table.min.js", [
-      "/js/bootstrap-table/bootstrap-table.js"
-    ]
-
-    css :bootstrap, "/css/bootstrap/#{theme}/bootstrap.min.css", [
-      "/css/bootstrap/#{theme}/bootstrap.css"
-    ]
-    css :bootstrap_table, "/css/bootstrap-table/bootstrap-table.min.css", [
-      "/css/bootstrap-table/bootstrap-table.css"
-    ]
-    css :material, "/css/material/material.min.css", [
-      "/css/material/material.css"
-    ]
-    css :customcss, [
-      "/customcss/ordnung.css"
-    ]
-
-    js_compression  :jsmin
-    css_compression :simple
-  }
 
   def initialize
     super
@@ -96,6 +57,11 @@ class App < Sinatra::Base
 
   get "/" do
     haml :index
+  end
+
+  get "/assets/*" do
+    env["PATH_INFO"].sub!("/assets", "")
+    settings.environment.call(env)
   end
 
   get "/json/help" do

@@ -16,9 +16,9 @@ Gem::Specification.new do |s|
   s.homepage                = "http://github.com/kkaempf/Ordnung"
   s.license                 = "MIT"
   s.add_dependency("trollop", ["2.1.2"])
-  s.add_dependency("sinatra", ["1.4.7"])
-  s.add_dependency("sinatra-assetpack", ["0.3.5"])
-  s.add_dependency("sinatra-advanced-routes", ["0.5.3"])
-  s.add_dependency("haml", ["4.0.7"])
-  s.add_dependency("elasticsearch", ["5.0.3"])
+  s.add_dependency("sinatra", ["2.0.0"])
+  s.add_dependency("sprockets", ["3.7.1"])
+  s.add_dependency("json", ["2.1.0"])
+  s.add_dependency("haml", ["5.0.4"])
+  s.add_dependency("elasticsearch", ["6.0.2"])
 end
