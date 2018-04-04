@@ -1,15 +1,17 @@
 require 'rubygems'
-require 'rack/rake_task'
+require 'find'
 require 'rspec/core/rake_task'
 
-Rack::Test::RakeTask.new(:test) do |task|
-  task.rack_opts = ["-c", "-f progress", "-r ./test/test_helper.rb"]
-  task.pattern    = 'test/*_test.rb'
+task :frontend do
+  Find.find('test/frontend') do |f|
+    next unless f =~ /.*_test\.rb/
+    `ruby -r'./test/frontend/test_helper' #{f}`
+  end
 end
 
-RSpec::Core::RakeTask.new(:rspec) do |task|
-  task.rspec_opts = ["-c", "-f progress", "-r ./rspec/test_helper.rb"]
-  task.pattern    = 'rspec/*_test.rb'
+RSpec::Core::RakeTask.new(:backend) do |task|
+  task.rspec_opts = ["-c", "-f progress", "-r ./test/backend/test_helper.rb"]
+  task.pattern    = 'test/backend/*_test.rb'
 end
 
-task :default => :test
+task :default => :backend
