@@ -1,3 +1,4 @@
+require 'lib/app'
 
 describe 'Ordnung App' do
   include Rack::Test::Methods

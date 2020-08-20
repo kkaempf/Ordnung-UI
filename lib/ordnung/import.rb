@@ -61,9 +61,9 @@ private
     # import file
     #
     def _import_file stat, path
-      puts "Importing file #{path}" if DEBUG
+      Logger.info "Importing file #{path}"
       entry = Entry.new stat, path
-      puts "Entry: #{entry}"
+      Logger.info "Entry: #{entry}"
       entry.save
     end
   end

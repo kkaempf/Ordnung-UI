@@ -31,7 +31,6 @@ describe 'Ordnung import' do
       name = File.join(@datadir, name)
       res = @db.search( { :name => name } )
       expect(res).to be
-      puts "res #{res.inspect}"
 #      expect(res["name"]).to be == name
     end
   end
