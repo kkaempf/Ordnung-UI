@@ -2,7 +2,11 @@ require 'rubygems'
 require 'find'
 require 'rspec/core/rake_task'
 
-task :frontend do
+task :clean_logs do
+  File.delete "log/test.log" rescue nil
+end
+
+task :frontend => :clean_logs do
   Find.find('test/frontend') do |f|
     next unless f =~ /.*_test\.rb/
     `ruby -r'./test/frontend/test_helper' #{f}`
@@ -14,4 +18,4 @@ RSpec::Core::RakeTask.new(:backend) do |task|
   task.pattern    = 'test/backend/*_test.rb'
 end
 
-task :default => :backend
+task :default => [:clean_logs, :backend]

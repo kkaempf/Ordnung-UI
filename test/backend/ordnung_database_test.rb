@@ -4,7 +4,9 @@ describe 'Database' do
 
   def delete_index
     begin
-      @client.indices.delete index: @index
+      db = Ordnung::Database.new
+      index = Ordnung::Config.elasticsearch['index']
+      db.client.indices.delete index: index
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
     end
   end
@@ -18,9 +20,6 @@ describe 'Database' do
     rescue Faraday::ConnectionFailed
       fail "Elasticsearch not running"
     end
-    @client = @db.client
-    @index = Ordnung::Config.elasticsearch['index']
-    delete_index
   end
   after(:all) do
     delete_index

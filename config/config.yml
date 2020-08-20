@@ -10,6 +10,25 @@ database: elasticsearch
 
 elasticsearch:
   index: "ordnung"
+  mapping:
+    dynamic: strict
+    properties:
+      type:
+       type: keyword
+      ctime:
+        type: date
+      locations:
+        type: keyword
+      mimetype:
+        type: keyword
+      mtime:
+        type: date
+      name:
+        type: keyword
+      size:
+        type: long
+      tags:
+        type: keyword
 
 mimetypes:
   - mime.types
