@@ -39,6 +39,9 @@ module Ordnung
   end
 
   class Ordnung
+    def logger
+      ::Ordnung.logger
+    end
   end
 
 end
