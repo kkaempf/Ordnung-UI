@@ -7,7 +7,7 @@ require "haml"
 require "json"
 require "time"
 
-require "lib/ordnung"
+require_relative "ordnung"
 
 class App < Sinatra::Base
   set :environment, Sprockets::Environment.new
