@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.require_paths           = ["lib"]
   s.homepage                = "http://github.com/kkaempf/Ordnung"
   s.license                 = "MIT"
-  s.add_runtime_dependency("trollop")
+  s.add_runtime_dependency("optimist")
   s.add_runtime_dependency("sinatra")
   s.add_runtime_dependency("sprockets")
   s.add_runtime_dependency("json")

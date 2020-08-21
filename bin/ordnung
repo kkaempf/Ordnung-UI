@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-require "trollop"
+require "optimist"
 require File.join(File.expand_path("..", File.dirname(__FILE__)),"lib","ordnung")
 
-opts = Trollop::options do
+opts = Optimist::options do
   # keep 'short' options in sorted order
   opt :import, "Import files or directories",  :short => 'i', :type => :string
   opt :server, "Start Ordnung webinterface",   :short => 's'
