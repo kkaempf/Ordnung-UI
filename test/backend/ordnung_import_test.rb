@@ -1,10 +1,11 @@
+require_relative "test_helper"
 
 describe 'Ordnung import' do
   include Rack::Test::Methods
 
   def delete_index
     begin
-      @client.indices.delete index: @index
+#      @client.indices.delete index: @index
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
     end
   end
@@ -28,10 +29,10 @@ describe 'Ordnung import' do
   it "imports all files" do
     Dir.open(@datadir).each do |name|
       next if name[0,1] == '.'
-      name = File.join(@datadir, name)
-      res = @db.search( { :name => name } )
-      expect(res).to be
-#      expect(res["name"]).to be == name
+      @ordnung.import @datadir, name
+      res = @db.search( name )
+      expect(res.size).not_to eql(0)
+#      expect(res["hits"]["_source"]["name"]).to eql(name)
     end
   end
 end

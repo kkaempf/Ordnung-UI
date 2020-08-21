@@ -1,4 +1,6 @@
 # test database api
+require_relative "test_helper"
+
 describe 'Database' do
   include Rack::Test::Methods
 
@@ -6,7 +8,7 @@ describe 'Database' do
     begin
       db = Ordnung::Database.new
       index = Ordnung::Config.elasticsearch['index']
-      db.client.indices.delete index: index
+#      db.client.indices.delete index: index
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
     end
   end
