@@ -50,21 +50,34 @@ module Ordnung
     end
     # alias for 'search all'
     def index
-      search Hash.new
+      search
     end
-    def search hash
-      Logger.info "search #{hash.inspect}"
-      query = ""
-      hash.each do |k,v|
-        query << " and " unless query.empty?
-        query << "#{k}:#{v}"
+    def search q=nil
+      Logger.info "search #{q.inspect}"
+      query = nil
+      case q
+      when nil
+        # skip
+      when String
+        query = q
+      when Hash
+        query = ""
+        q.each do |k,v|
+          query << " and " unless query.empty?
+          query << "#{k}:#{v}"
+        end
+      else
+        Logger.error "Can't handle search type #{q.class}"
+        return
       end
-#      query = { query: { match_all: {} } } if query.empty?
-      query = "*:*"
       begin
 #        obj = @client.perform_request 'POST', "#{@index}/_search", {}, query
-        obj = @client.search index: @index, q: query
-        Logger.info "search #{@index.inspect}: #{query.inspect} result: #{obj.inspect}"
+        if query
+          obj = @client.search index: @index, q: query
+        else
+          obj = @client.search index: @index
+        end
+        Logger.info "search #{@index.inspect}: query #{query.inspect} result: #{obj.inspect}"
         hits = obj["hits"]
         total = hits["total"]["value"] rescue 0
         if total > 0
