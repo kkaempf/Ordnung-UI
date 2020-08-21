@@ -25,7 +25,7 @@ elasticsearch:
         type: date
       name:              # name of file incl. extension
         type: keyword
-      path:              # path to file
+      locations:         # path(es) to file
         type: text
       size:              # size of file (fragment)
         type: long
