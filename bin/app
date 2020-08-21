@@ -4,6 +4,8 @@ $:.unshift File.expand_path(File.join(File.dirname(__FILE__), ".."))
 
 require "lib/app"
 
+# app_file is lib/app, $0 is bin/app
+
 class App < Sinatra::Base
-  run! if app_file == $0
+ run!
 end

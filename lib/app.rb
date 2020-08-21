@@ -1,3 +1,6 @@
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 require "sinatra/base"
 require "sprockets"
 require "haml"
@@ -18,12 +21,15 @@ class App < Sinatra::Base
   set :bind, "0.0.0.0"
   set :port, Ordnung::Config["port"] || 4567
   theme = Ordnung::Config["theme"] || "default"
+end
 
+class App < Sinatra::Base
   def initialize
     super
     @title = Ordnung::Config["title"] || "Ordnung"
     @theme_type = get_theme_type
     @colors = Ordnung.get_colors
+    STDERR.puts "Starting server app #{ARGV.inspect}"
   end
 
   helpers do
@@ -42,8 +48,9 @@ class App < Sinatra::Base
       @entry ||= Ordnung.database.read(params[:id]) rescue halt(404)
     end
   end
+end
 
-
+class App < Sinatra::Base
   #
   # MAIN Routes
   #
