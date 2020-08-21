@@ -1,0 +1,26 @@
+# get all indices
+
+curl -X GET 'http://localhost:9200/_cat/indices?v'
+
+# info
+
+curl -X GET 'http://localhost:9200/ordnung_test'
+
+# delete index
+
+curl -X DELETE 'http://localhost:9200/ordnung_test'
+
+# get all documents
+
+curl -X GET 'http://localhost:9200/ordnung_test/_search'
+
+#
+
+curl -XGET \
+  --header 'Content-Type: application/json' \
+  http://localhost:9200/samples/_search \
+  -d '{
+        "query" : {
+         "match" : { "school": "Harvard" }
+        }
+      }'
