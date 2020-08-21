@@ -14,20 +14,22 @@ elasticsearch:
     dynamic: strict
     properties:
       type:
-       type: keyword
-      ctime:
+        type: keyword
+      ctime:             # creation time
         type: date
-      locations:
+      sha256:            # SHA256 sum
         type: keyword
-      mimetype:
+      mimetype:          # mime type of data
         type: keyword
-      mtime:
+      mtime:             # modification time
         type: date
-      name:
+      name:              # name of file incl. extension
         type: keyword
-      size:
+      path:              # path to file
+        type: text
+      size:              # size of file (fragment)
         type: long
-      tags:
+      tags:              # array of tags
         type: keyword
 
 mimetypes:
