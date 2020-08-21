@@ -8,6 +8,9 @@ module Ordnung
     
     EXCLUDE_PATTERNS = [ ".git", /.*~/ ]
 
+    # import from path (all files in directory
+    #   or single entry (path = directory, entry = filename)
+    #
     def import path, entry = nil
       path = File.expand_path(path)
       if entry
@@ -26,7 +29,7 @@ module Ordnung
           logger.error "Unsupported exclude_pattern #{exclude_pattern.inspect}"
         end
       end
-#      puts "Import from #{from.inspect}" if DEBUG
+      logger.debug "Import from #{from.inspect}"
       begin
         stat = File.stat(from)
       rescue Exception => e
@@ -47,7 +50,7 @@ private
     # import directory
     #
     def _import_directory path
-#      puts "Importing directory #{path}" if DEBUG
+      logger.debug "Importing directory #{path}"
       Dir.open path do |dir|
         dir.each do |entry|
           next if entry == "."

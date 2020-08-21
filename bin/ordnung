@@ -12,8 +12,6 @@ end
 
 abort("try ordnung -h") if opts.all?{|k,v| v.is_a?(FalseClass)}
 
-DEBUG = opts[:debug_given]
-
 if opts[:server_given]
   if Ordnung::Config.database.nil?
     abort("Configure a database, there is nothing to be shown")
@@ -28,6 +26,10 @@ if opts[:server_given]
 end
 
 ordnung = Ordnung::Ordnung.new
+
+if opts[:debug_given]
+  Logger.level = Logger::DEBUG
+end
 
 opts.each_pair do |key,val|
 #  puts "Opt #{key.inspect} : #{val.inspect}" if DEBUG
