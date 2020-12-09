@@ -10,6 +10,7 @@ require_relative "ordnung/import"
 require_relative "ordnung/mime_type"
 require_relative "ordnung/rom"
 require_relative "ordnung/file"
+require_relative "ordnung/directory"
 require_relative "ordnung/logger"
 require_relative "ordnung/version"
 
@@ -23,6 +24,10 @@ module Ordnung
 
   def mimetype
     @@mimetype ||= MimeType.new
+  end
+  
+  def rom
+    @@rom ||= ROM.new
   end
 
   def get_colors

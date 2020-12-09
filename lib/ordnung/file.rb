@@ -23,7 +23,6 @@ module Ordnung
     attr_reader :id, :name, :extension, :directory
     def initialize pathname
       Logger.info "File.new"
-      @@rom ||= ROM.new
       if ::File.directory?(pathname)
         raise "Is a directory"
       end
@@ -45,16 +44,7 @@ module Ordnung
     end
 
     def self.repo
-      @@repo ||= Repositories::Files.new(@@rom.container)
-    end
-    def save
-      if @id
-        Logger.info "File.save update #{self.inspect}"
-        # update
-      else
-        Logger.info "File.save new #{self.inspect}"
-        f
-      end
+      @@repo ||= Repositories::Files.new(::Ordnung.rom.container)
     end
   end
 end

@@ -26,6 +26,12 @@ module Ordnung
       def [](id)
         directories.by_pk(id).one!
       end
+      def id(d)
+        sql = directories.where(name: d.name, parent: d.parent)
+        .select(:id)
+        .first
+        (sql) ? sql.id : sql
+      end
     end
 
   end # Repositories

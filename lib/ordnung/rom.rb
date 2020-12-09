@@ -15,14 +15,29 @@ module Ordnung
     attr_reader :container
     def initialize
       Logger.info "ROM.initialize"
-      @config = ::ROM::Configuration.new(ROM_TYPE, 'sqlite://ordnung.db')
-      @config.register_relation Relations::Files
-      @config.register_relation Relations::Extensions
-      @config.register_relation Relations::Directories
-      @container = ::ROM.container(@config)
+      @container = ::ROM.container(ROM_TYPE, 'sqlite://ordnung.db') do |config|
+        config.relation(:files) do
+          schema(infer: true)
+          auto_struct true
+        end
+        config.relation(:extensions) do
+          schema(infer: true)
+          auto_struct true
+        end
+        config.relation(:directories) do
+          schema(infer: true)
+          auto_struct true
+        end
+      end
     end
     def files_repo
       @files_repo ||= Repositories::Files.new(@container)
+    end
+    def extensions_repo
+      @extensions_repo ||= Repositories::Extensions.new(@container)
+    end
+    def directories_repo
+      @directories_repo ||= Repositories::Directories.new(@container)
     end
   end
 end
