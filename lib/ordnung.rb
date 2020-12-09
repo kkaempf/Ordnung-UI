@@ -5,10 +5,11 @@ unless defined?(TOPLEVEL)
 end
 
 require_relative "ordnung/config"
-require_relative "ordnung/database"
 require_relative "ordnung/entry"
 require_relative "ordnung/import"
 require_relative "ordnung/mime_type"
+require_relative "ordnung/rom"
+require_relative "ordnung/file"
 require_relative "ordnung/logger"
 require_relative "ordnung/version"
 
@@ -18,15 +19,6 @@ module Ordnung
 
   def logger
     @@logger ||= Logger.new
-  end
-
-  def database
-    begin
-      @@database ||= Database.new
-    rescue Faraday::ConnectionFailed
-      Logger.error "Can't connect to database"
-      raise "Database not running"
-    end
   end
 
   def mimetype

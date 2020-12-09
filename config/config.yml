@@ -6,31 +6,31 @@ theme: cosmo # One of cerulean cosmo cyborg darkly flatly journal lumen paper re
 port: # Specify a port where you can reach the webinterface, or (default) 4567
 
 # see lib/ordnung/database
-database: elasticsearch
+database: sqlite3
 
-elasticsearch:
-  index: "ordnung"
-  mapping:
-    dynamic: strict
-    properties:
-      type:
-        type: keyword
-      ctime:             # creation time
-        type: date
-      sha256:            # SHA256 sum
-        type: keyword
-      mimetype:          # mime type of data
-        type: keyword
-      mtime:             # modification time
-        type: date
-      name:              # name of file incl. extension
-        type: keyword
-      locations:         # path(es) to file
-        type: text
-      size:              # size of file (fragment)
-        type: long
-      tags:              # array of tags
-        type: keyword
+name: "ordnung"
+
+mapping:
+  dynamic: strict
+  properties:
+    type:
+      type: keyword
+    ctime:             # creation time
+      type: date
+    sha256:            # SHA256 sum
+      type: keyword
+    mimetype:          # mime type of data
+      type: keyword
+    mtime:             # modification time
+      type: date
+    name:              # name of file incl. extension
+      type: keyword
+    locations:         # path(es) to file
+      type: text
+    size:              # size of file (fragment)
+      type: long
+    tags:              # array of tags
+      type: keyword
 
 mimetypes:
   - mime.types

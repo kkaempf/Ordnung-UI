@@ -1,4 +1,6 @@
 
+require_relative 'test_helper'
+
 describe 'Ordnung Config' do
   include Rack::Test::Methods
 
@@ -11,6 +13,6 @@ describe 'Ordnung Config' do
   end
 
   it "uses the test index" do
-    expect(Ordnung::Config.elasticsearch['index']).to be == "ordnung_test"
+    expect(Ordnung::Config['name']).to be == "ordnung_test"
   end
 end

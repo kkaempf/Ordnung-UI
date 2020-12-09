@@ -2,6 +2,10 @@ require 'rubygems'
 require 'find'
 require 'rspec/core/rake_task'
 
+require_relative 'config/application'
+require 'rom-sql'
+require 'rom/sql/rake_task'
+
 task :clean_logs do
   File.delete "log/test.log" rescue nil
 end
@@ -19,3 +23,12 @@ RSpec::Core::RakeTask.new(:backend) do |task|
 end
 
 task :default => [:clean_logs, :backend]
+
+
+namespace :db do
+  task :setup do
+    Ordnung::Application.start(:db)
+    config = Ordnung::Application['db.config']
+    config.gateways[:default].use_logger(Logger.new($stdout))
+  end
+end
