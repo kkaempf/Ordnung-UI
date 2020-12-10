@@ -9,7 +9,7 @@ describe 'Directory' do
       dirname = File.dirname(__FILE__)
       dir = Ordnung::Directory.new(dirname)
       expect(dir.name).to be == 'backend'
-      expect(Ordnung::Directory.repo[dir.parent].name).to be == 'test'
+      expect(Ordnung::Directory[dir.parent].name).to be == 'test'
     end
   end
 end

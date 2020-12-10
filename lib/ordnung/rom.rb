@@ -15,7 +15,7 @@ module Ordnung
     attr_reader :container
     def initialize
       Logger.info "ROM.initialize"
-      @container = ::ROM.container(ROM_TYPE, 'sqlite://ordnung.db') do |config|
+      @container = ::ROM.container(ROM_TYPE, ::Ordnung::Application['db.name']) do |config|
         config.relation(:files) do
           schema(infer: true)
           auto_struct true

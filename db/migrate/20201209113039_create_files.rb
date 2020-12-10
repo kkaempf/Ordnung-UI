@@ -5,8 +5,8 @@ ROM::SQL.migration do
     create_table :files do
       primary_key :id
       string :name, null: false
-      string :extension
-      string :directory, null: false
+      foreign_key :extension_id, :extensions
+      foreign_key :directory_id, :directories, null: false
     end
   end
 end

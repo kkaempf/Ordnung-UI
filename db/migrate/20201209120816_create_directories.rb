@@ -5,7 +5,7 @@ ROM::SQL.migration do
     create_table :directories do
       primary_key :id
       string :name, null: false
-      integer :parent
+      foreign_key :parent, :directories
     end
   end
 end

@@ -4,34 +4,3 @@ logfile: stderr # stderr, stdout, or path; defaults to log/ordnung.log
 title: Ordnung
 theme: cosmo # One of cerulean cosmo cyborg darkly flatly journal lumen paper readable sandstone simplex slate spacelab superhero united yeti (see http://bootswatch.com). Leave empty for default
 port: # Specify a port where you can reach the webinterface, or (default) 4567
-
-# see lib/ordnung/database
-database: sqlite3
-
-name: "ordnung"
-
-mapping:
-  dynamic: strict
-  properties:
-    type:
-      type: keyword
-    ctime:             # creation time
-      type: date
-    sha256:            # SHA256 sum
-      type: keyword
-    mimetype:          # mime type of data
-      type: keyword
-    mtime:             # modification time
-      type: date
-    name:              # name of file incl. extension
-      type: keyword
-    locations:         # path(es) to file
-      type: text
-    size:              # size of file (fragment)
-      type: long
-    tags:              # array of tags
-      type: keyword
-
-mimetypes:
-  - mime.types
-  - yml: text/plain
