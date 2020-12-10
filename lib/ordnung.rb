@@ -13,6 +13,7 @@ require_relative "ordnung/rom"
 require_relative "ordnung/file"
 require_relative "ordnung/directory"
 require_relative "ordnung/extension"
+require_relative "ordnung/mimetypes"
 require_relative "ordnung/logger"
 require_relative "ordnung/version"
 

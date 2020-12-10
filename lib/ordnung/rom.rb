@@ -28,6 +28,10 @@ module Ordnung
           schema(infer: true)
           auto_struct true
         end
+        config.relation(:mimetypes) do
+          schema(infer: true)
+          auto_struct true
+        end
       end
     end
     def files_repo

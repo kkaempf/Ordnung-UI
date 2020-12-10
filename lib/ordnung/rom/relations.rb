@@ -32,5 +32,14 @@ module Ordnung
       end
     end
 
+    class MimeTypes < ::ROM::Relation[ROM_TYPE]
+      schema(:mimetypes) do
+        attribute :id, Types::Integer
+        attribute :name, Types::String
+
+        primary_key :id
+      end
+    end
+
   end # Relations
 end # Ordnung

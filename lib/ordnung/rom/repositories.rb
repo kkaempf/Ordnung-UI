@@ -34,6 +34,15 @@ module Ordnung
         (sql) ? sql.id : sql
       end
     end
+    class MimeTypes < ::ROM::Repository[:mimetypes]
+      commands :create
+      def by_id(id)
+        mimetypes.by_pk(id).one!
+      end
+      def by_name(name)
+        mimetypes.where(name: name).first
+      end
+    end
 
   end # Repositories
 end # Ordnung
