@@ -4,8 +4,6 @@ unless defined?(TOPLEVEL)
   TOPLEVEL = File.expand_path("..", File.dirname(__FILE__))
 end
 
-STDERR.puts __FILE__
-
 require_relative "ordnung/config"
 require_relative "ordnung/import"
 require_relative "ordnung/mime_type"
