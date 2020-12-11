@@ -38,6 +38,7 @@ module Ordnung
       f = @@repo[name, extension_id, directory_id]
       unless f
         f = @@repo.create(name: name, extension_id: extension_id, directory_id: directory_id)
+        @created = true
       end
       f
     end
@@ -67,6 +68,8 @@ module Ordnung
     def directory
       Directory.pathname(@struct.directory_id)
     end
-
+    def created?
+      @created
+    end
   end
 end

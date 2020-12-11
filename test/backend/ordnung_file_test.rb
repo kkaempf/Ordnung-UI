@@ -27,6 +27,7 @@ describe 'File' do
   describe "file database" do
     it "can be stored and retrieved" do
       g = Ordnung::File.new @f.id
+      expect(g.created?).to be == nil
       expect(g.name).to be == @f.name
       expect(g.extension).to be == @f.extension
       expect(g.directory).to be == @f.directory
