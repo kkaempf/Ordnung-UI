@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 
 require "optimist"
-require File.join(File.expand_path("..", File.dirname(__FILE__)),"lib","ordnung")
+$:.push(File.join(File.expand_path("..", File.dirname(__FILE__)),"lib"))
+require 'ordnung'
 
 opts = Optimist::options do
   # keep 'short' options in sorted order
@@ -10,7 +11,7 @@ opts = Optimist::options do
   opt :debug,  "Debug",                        :short => 'd'
 end
 
-abort("try ordnung -h") if opts.all?{|k,v| v.is_a?(FalseClass)}
+abort("try ordnung -h") if opts.all?{|k,v| puts "#{k.inspect}:#{v.inspect}"; !v}
 
 if opts[:server_given]
   if Ordnung::Config.database.nil?
