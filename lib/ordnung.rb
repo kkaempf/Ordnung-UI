@@ -32,7 +32,7 @@ module Ordnung
   end
 
   def get_colors
-    conf = File.join(TOPLEVEL,"config","colors.yml")
+    conf = ::File.join(TOPLEVEL,"config","colors.yml")
     YAML.load_file(conf)
   end
 

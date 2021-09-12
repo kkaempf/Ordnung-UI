@@ -29,7 +29,7 @@ class App < Sinatra::Base
     @title = Ordnung::Config["title"] || "Ordnung"
     @theme_type = get_theme_type
     @colors = Ordnung.get_colors
-    STDERR.puts "Starting server app #{ARGV.inspect}"
+    Ordnung::Logger.info "Starting server app #{ARGV.inspect}"
   end
 
   helpers do
@@ -56,7 +56,8 @@ class App < Sinatra::Base
   #
 
   get "/" do
-    haml :index
+    Ordnung.logger.info "get /"
+    haml :ordnung
   end
 
   get "/assets/*" do
@@ -72,31 +73,4 @@ class App < Sinatra::Base
     routes.uniq.to_json
   end
 
-  get "/help" do
-    haml :help
-  end
-
-  get "/error" do
-    haml :error
-  end
-
-  get "/ordnung/index", provides: :json do
-    begin
-      items = Ordnung.database.index
-      return items.to_json
-    rescue Exception => e
-      Ordnung.logger.error "Error getting index: #{e}"
-      redirect to('/error'), e
-    end
-  end
-
-  get "/ordnung/entry/:hash", provides: :json do
-    begin
-      entry = Ordnung.database.read params["hash"]
-      return entry.to_json
-    rescue Exception => e
-      Ordnung.logger.error "Error getting entry (#{hash}): #{e}"
-      redirect to('/error'), e
-    end
-  end
 end

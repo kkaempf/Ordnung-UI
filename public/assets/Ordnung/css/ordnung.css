@@ -1,7 +1,38 @@
-.navbar-static-top {
-  margin-bottom: 19px;
+.ordnung-container {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(7, 1fr);
 }
-
+.ordnung-header {
+  background-color: red;
+  border-width: 5px;
+  border: steelblue;
+  grid-row: 1;
+  grid-column: 1 / max-content;
+}
+.ordnung-sidebar {
+  background-color: green;
+  font-size: x-large;
+  font-weight: bold;
+  grid-column: 1;
+  grid-row: 2 / max-content;
+}
+.ordnung-panel {
+  background-color: lightgray;
+  grid-column: 2 / max-content;
+  grid-row: 2 / max-content;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
+  grid-gap: 1px;
+}
+.panel-item {
+  background-color: gray;
+  border: black;
+  border-style: solid;
+  border-width: 1px;
+  height: 100px;
+}
 .table th, .table td {
   border-top: none !important;
 }

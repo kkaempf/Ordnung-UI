@@ -1,0 +1,17 @@
+!!!
+%html
+  %head
+    %link{href: "/assets/Ordnung/css/ordnung.css", rel: "stylesheet"}
+    %meta{:charset => "utf-8"}
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+    %script{ src: "/assets/vue/js/vue.global.js"}
+    %title #{@title}
+    %link{:href => "/images/favicon.ico", :rel => "shortcut icon"}
+  %body
+    %div#ordnung
+    %script{ src: "/assets/main.js"}
+    %script{ src: "/components/ProductDisplay.js"}
+    %script{ src: "/components/ProductDetails.js"}
+    :javascript
+      console.log("Mounting")
+      const mountedApp = app.mount('#ordnung');

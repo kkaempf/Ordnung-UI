@@ -11,9 +11,8 @@ opts = Optimist::options do
   opt :debug,  "Debug",                        :short => 'd'
 end
 
-abort("try ordnung -h") if opts.all?{|k,v| puts "#{k.inspect}:#{v.inspect}"; !v}
-
 if opts[:server_given]
+  puts "server given"
   if Ordnung::Config.database.nil?
     abort("Configure a database, there is nothing to be shown")
   else
@@ -44,5 +43,8 @@ opts.each_pair do |key,val|
     rescue Exception => e
       $stderr.puts "Import failed: #{e}"
     end
+    exit
   end
 end
+
+abort("try ordnung -h")
