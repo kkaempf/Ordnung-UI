@@ -6,8 +6,9 @@ require "sprockets"
 require "haml"
 require "json"
 require "time"
+require "ordnung"
 
-require_relative "ordnung"
+require_relative "ordnung-ui"
 
 class App < Sinatra::Base
   set :environment, Sprockets::Environment.new
@@ -19,24 +20,24 @@ class App < Sinatra::Base
   set :public_folder, File.join(ROOT_PATH, "public")
   set :views, File.join(ROOT_PATH, "views")
   set :bind, "0.0.0.0"
-  set :port, Ordnung::Config["port"] || 4567
-  theme = Ordnung::Config["theme"] || "default"
+  set :port, OrdnungUI::Config["port"] || 4567
+  theme = OrdnungUI::Config["theme"] || "default"
 end
 
 class App < Sinatra::Base
   def initialize
     super
-    @title = Ordnung::Config["title"] || "Ordnung"
+    @title = OrdnungUI::Config["title"] || "Ordnung"
     @theme_type = get_theme_type
-    @colors = Ordnung.get_colors
-    Ordnung::Logger.info "Starting server app #{ARGV.inspect}"
+    @colors = OrdnungUI.get_colors
+    OrdnungUI::Logger.info "Starting server app #{ARGV.inspect}"
   end
 
   helpers do
     ### generic helpers
 
     def get_theme_type
-      theme = Ordnung::Config["theme"] || "default"
+      theme = OrdnungUI::Config["theme"] || "default"
       if ["cyborg", "darkly", "slate", "superhero"].include? theme
         "dark"
       else

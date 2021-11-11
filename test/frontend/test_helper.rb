@@ -1,11 +1,13 @@
 ENV['RACK_ENV'] = 'test'
 
-$:.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", ".."))
+top = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "lib"))
+STDERR.puts "top #{top}"
+$:.unshift top
 
 require 'capybara'
 require 'selenium-webdriver'
 gem 'chromedriver-helper'
-require 'lib/app'
+
 require 'capybara/dsl'
 require 'test/unit'
 
@@ -25,7 +27,7 @@ Capybara.register_driver :headless_chrome do |app|
 end
 
 Capybara.javascript_driver = :headless_chrome
-
+Capybara.server = :webrick
 #Capybara.javascript_driver = :chrome
 
 Capybara.configure do |config|
