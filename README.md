@@ -18,8 +18,10 @@ nr:9, family:brother, family:sister:sue,
 
 ## REST pathes
 
-GET /add - select directory
-POST /add/path/to/dir - add directory
+GET /directory - select directory
+POST /directory body: /path/to/dir - add directory
+GET /file/<hash>
+
 GET / - view dashboard
-GET /tags/tag:no:1/tag:no:2 - filter by tags
-POST /tags/tag:no:1/tag:no:2?item=<hash> - add tags to item
+GET /tag?tag:no:1&tag:no:2 - filter by tags
+POST /tag/<hash> body: tag:no:1, tag:no:2?item= - add tags to item

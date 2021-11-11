@@ -18,39 +18,21 @@ identical.
 
 A file has some more attributes:
 
-* name
-  As explained above, minus the extension.
-* extension foreign_key
-  like .doc, .jpg, or .mp3; without the dot
-* directory foreign_key
-  list of path components, like: "Pictures","Family"
-* md5
-  checksum
-* size
-  file size in bytes
-* ctime
-  file creation time
-* mimetype foreign_key
-  on import, the file is checked by its extension
-  and a detailed mimetype is stored
-* tags
-  tbd
-
+{
+  name: "As explained above, minus the extension.",
+  extension: foreign_key //  like .doc, .jpg, or .mp3; without the dot
+  directory: foreign_key //  list of path components, like: "Pictures","Family"
+  md5: <checksum>
+  size: <file size in bytes>
+  ctime: <file creation time>
+  mimetype: <foreign_key> //  on import, the file is checked by its extension  and a detailed mimetype is stored
+  tags: [<tag>, ...]
+}
 ----
 
-File
-- id: Int primary_key
-- name: String
-- md5: String
-- size: Int
-- ctime: Date
-- has_one :extension
-- has_one :mimetype
-- has_one :directory
-
 Directory - linked list of path elements
-- id: Int primary_key
-- parent: Int
+- id: <key> primary_key
+- parent: <key>
 - name: String
 
 Mimetype
