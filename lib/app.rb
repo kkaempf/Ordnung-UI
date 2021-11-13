@@ -12,15 +12,17 @@ require_relative "ordnung-ui"
 
 class App < Sinatra::Base
   set :environment, Sprockets::Environment.new
-  environment.append_path "assets/stylesheets"
-  environment.append_path "assets/javascripts"
+  environment.append_path "assets/bootstrap"
+  environment.append_path "assets/vue"
 
-  ROOT_PATH = File.join(File.expand_path("..", File.dirname(__FILE__)))
+  ROOT_PATH = File.expand_path(File.join(File.dirname(__FILE__), ".."))
+
   self.set :root, File.join(ROOT_PATH, "lib")
   set :public_folder, File.join(ROOT_PATH, "public")
   set :views, File.join(ROOT_PATH, "views")
   set :bind, "0.0.0.0"
   set :port, OrdnungUI::Config["port"] || 4567
+
   theme = OrdnungUI::Config["theme"] || "default"
 end
 
@@ -30,7 +32,8 @@ class App < Sinatra::Base
     @title = OrdnungUI::Config["title"] || "Ordnung"
     @theme_type = get_theme_type
     @colors = OrdnungUI.get_colors
-    OrdnungUI::Logger.info "Starting server app #{ARGV.inspect}"
+    Ordnung::Logger.info "Starting server app #{ARGV.inspect}"
+    @ui = OrdnungUI::UI.new
   end
 
   helpers do
@@ -45,9 +48,6 @@ class App < Sinatra::Base
       end
     end
 
-    def entry
-      @entry ||= Ordnung.database.read(params[:id]) rescue halt(404)
-    end
   end
 end
 
@@ -66,12 +66,14 @@ class App < Sinatra::Base
     settings.environment.call(env)
   end
 
-  get "/json/help" do
+  get "/api/help" do
     routes = []
     App.each_route do |route|
       routes << {:route => route.path} if route.path.is_a? String
     end
     routes.uniq.to_json
   end
-
+  get "/api/file/count.json" do
+    return { count: Ordnung::File.count }.to_json
+  end
 end

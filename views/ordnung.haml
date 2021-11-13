@@ -9,9 +9,10 @@
     %link{:href => "/images/favicon.ico", :rel => "shortcut icon"}
   %body
     %div#ordnung
-    %script{ src: "/assets/main.js"}
-    %script{ src: "/components/ProductDisplay.js"}
-    %script{ src: "/components/ProductDetails.js"}
+      {{ entries }} entries
+    %script{ src: "/assets/app.js"}
+    %script{ src: "/assets/axios/axios.min.js"}
     :javascript
       console.log("Mounting")
       const mountedApp = app.mount('#ordnung');
+      console.log("mountedApp ", mountedApp);

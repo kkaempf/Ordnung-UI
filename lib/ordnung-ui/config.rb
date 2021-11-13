@@ -22,7 +22,7 @@ module OrdnungUI
     end
     # access config section by name
     def self.[] name
-      self.content[name]
+      self.content[name.to_s]
     end
     def self.method_missing(name, *args, &block)
 #      puts "Config.#{name}: #{self.content[name.to_s]}"
