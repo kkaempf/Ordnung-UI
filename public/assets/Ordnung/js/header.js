@@ -1,16 +1,21 @@
-app.component('ordnung-header',  {
+const Header = {
   data() {
     return {
       title: 'Chaos',
-      image: './public/assets/images/Ordnung_Chaos.jpg'
+      image: '/images/Ordnung_Chaos.jpg'
     }
+  },
+  mounted() {
+    console.log("Header is mounted");
   },
   template:
   /*html*/
   `
   <div id="ordnung-header" class="ordnung-header">
-    <img v-bind:src="image"/>
-    <h1>{{ title }}</h1>
+    <span>
+      <img class="header-image" v-bind:src="image"/>
+      {{ title }}
+    </span>
   </div>
   `
-})
+}

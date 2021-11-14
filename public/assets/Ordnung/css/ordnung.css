@@ -4,11 +4,15 @@
   grid-template-rows: repeat(7, 1fr);
 }
 .ordnung-header {
-  background-color: red;
+  background-color: blue;
   border-width: 5px;
   border: steelblue;
   grid-row: 1;
   grid-column: 1 / max-content;
+}
+img.header-image {
+  border-radius: 8px;
+  max-width: 20%;
 }
 .ordnung-sidebar {
   background-color: green;
