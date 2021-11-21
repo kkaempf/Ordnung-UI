@@ -73,7 +73,17 @@ class App < Sinatra::Base
     end
     routes.uniq.to_json
   end
-  get "/api/file/count.json" do
+  get "/api/files/count" do
     return { count: Ordnung::File.count }.to_json
+  end
+  get "/api/files" do
+    offset = params['offset']
+    limit = params['limit']
+    STDERR.puts ("api/files offset #{offset.inspect} limit #{limit.inspect}")
+    return { files: Ordnung::File.list(offset: offset, limit: limit) }.to_json
+  end
+  get "/api/item/:itemkey" do
+    document = Ordnung::File.get(params[:itemkey])
+    return { item: document.to_hash }.to_json
   end
 end

@@ -35,7 +35,6 @@ img.header-image {
   border: black;
   border-style: solid;
   border-width: 1px;
-  height: 100px;
 }
 .table th, .table td {
   border-top: none !important;

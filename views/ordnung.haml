@@ -6,14 +6,17 @@
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
     %script{ src: "/assets/vue/js/vue.global.js"}
     %script{ src: "/assets/axios/axios.min.js"}
-    %script{ src: "/assets/Ordnung/js/file.js"}
+    %script{ src: "/assets/Ordnung/js/count.js"}
     %script{ src: "/assets/Ordnung/js/header.js"}
+    %script{ src: "/assets/Ordnung/js/files.js"}
+    %script{ src: "/assets/Ordnung/js/item.js"}
     %title #{@title}
     %link{:href => "/images/favicon.ico", :rel => "shortcut icon"}
   %body
     %div#ordnung
       <ordnung-header></ordnung-header>
-      <entries></entries>
+      <count></count>
+      <files><files>
     %script{ src: "/assets/app.js"}
     :javascript
       console.log("Mounting")

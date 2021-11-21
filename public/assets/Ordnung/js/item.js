@@ -1,13 +1,22 @@
-app.component('panel-item',  {
+const Item = {
+  props: {
+    itemKey: String
+  },
   data() {
     return {
+      item: {}
     }
+  },
+  mounted() {
+/*    console.log('Key ' + this.itemKey); */
+    axios.get('/api/item/' + this.itemKey)
+    .then(response =>
+      this.item = response.data.item
+    )
   },
   template:
   /*html*/
   `
-  <div id="panel-item" class="panel-item">
-    item
-  </div>
+  <div class="panel-item">{{ this.itemKey }} {{ this.item.name }}</div>
   `
-})
+}
