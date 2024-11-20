@@ -10,7 +10,7 @@ end
 
 task :frontend => :clean_logs do
   Find.find('test/frontend') do |f|
-    next unless f =~ /.*_test\.rb/
+    next unless f =~ /.*_test\.rb$/
     `ruby -r'./test/frontend/test_helper' #{f}`
   end
 end

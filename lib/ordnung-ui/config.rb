@@ -4,6 +4,7 @@
 
 module OrdnungUI
 
+  require 'yaml'
   #
   # Config
   #

@@ -4,3 +4,4 @@ Gemfile.lock
 public/thumbnails
 *.db
 node_modules
+*.gem

@@ -13,19 +13,13 @@ end
 
 if opts[:server_given]
   puts "server given"
-  if Ordnung::Config.database.nil?
-    abort("Configure a database, there is nothing to be shown")
-  else
-    begin
-      `#{File.join(File.expand_path("..", File.dirname(__FILE__)),"bin","app")} #{DEBUG}`
-    rescue Interrupt
-      sleep 2
-      exit
-    end
+  begin
+    `#{File.join(File.expand_path("..", File.dirname(__FILE__)),"bin","app")}`
+  rescue Interrupt
+    sleep 2
+    exit
   end
 end
-
-ordnung = Ordnung::Ordnung.new
 
 if opts[:debug_given]
   Logger.level = Logger::DEBUG
@@ -39,7 +33,7 @@ opts.each_pair do |key,val|
   case key
   when :import
     begin
-      ordnung.import val
+      Ordnung.import val
     rescue Exception => e
       $stderr.puts "Import failed: #{e}"
     end

@@ -4,6 +4,9 @@ end
 
 require_relative "ordnung-ui/config"
 
+gem 'ordnung'
+require 'ordnung'
+
 module OrdnungUI
   VERSION = '0.2.0'
 
@@ -21,24 +24,6 @@ module OrdnungUI
   class UI
     def logger
       ::Ordnung.logger
-    end
-    def initialize
-      require 'arango-driver'
-      attrs = {
-        username: Config[:db_user], password: Config[:db_password], host: Config[:db_host], port: Config[:db_port]
-      }
-      logger.info "attrs #{attrs.inspect}"
-      server = Arango.connect_to_server  username: Config[:db_user], password: Config[:db_password], host: Config[:db_host], port: Config[:db_port]
-
-      require 'ordnung'
-      name = Config[:db_database]
-      database = if server.database_exists?(name: name)
-        server.get_database(name: name)
-      else
-        server.create_database(name: name)
-      end
-      Ordnung.database = database
-      Ordnung.setup
     end
   end
 

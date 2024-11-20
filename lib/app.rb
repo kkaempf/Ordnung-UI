@@ -6,6 +6,7 @@ require "sprockets"
 require "haml"
 require "json"
 require "time"
+gem "ordnung"
 require "ordnung"
 
 require_relative "ordnung-ui"
