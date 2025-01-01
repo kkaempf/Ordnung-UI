@@ -33,8 +33,9 @@ class App < Sinatra::Base
     @title = OrdnungUI::Config["title"] || "Ordnung"
     @theme_type = get_theme_type
     @colors = OrdnungUI.get_colors
-    Ordnung::Logger.info "Starting server app #{ARGV.inspect}"
+    Ordnung.logger.info "Starting server app #{ARGV.inspect}"
     @ui = OrdnungUI::UI.new
+    @ordnung = Ordnung::Ordnung.new
   end
 
   helpers do
@@ -58,7 +59,7 @@ class App < Sinatra::Base
   #
 
   get "/" do
-    Ordnung.logger.info "get /"
+    @ordnung.log.info "get /"
     haml :ordnung
   end
 
@@ -75,16 +76,20 @@ class App < Sinatra::Base
     routes.uniq.to_json
   end
   get "/api/files/count" do
-    return { count: Ordnung::File.count }.to_json
+    return { count: @ordnung.count }.to_json
   end
   get "/api/files" do
     offset = params['offset']
     limit = params['limit']
     STDERR.puts ("api/files offset #{offset.inspect} limit #{limit.inspect}")
-    return { files: Ordnung::File.list(offset: offset, limit: limit) }.to_json
+    files = []
+    @ordnung.each do |gizmo|
+      files << gizmo.path
+    end
+    return { files: files }.to_json
   end
   get "/api/item/:itemkey" do
-    document = Ordnung::File.get(params[:itemkey])
+    document = @ordnung.get(params[:itemkey])
     return { item: document.to_hash }.to_json
   end
 end
