@@ -5,7 +5,6 @@ STDERR.puts "top #{top}"
 $:.unshift top
 
 require 'selenium-webdriver'
-gem 'webdrivers'
 
 require 'capybara/rspec'
 require 'test/unit'

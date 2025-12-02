@@ -26,5 +26,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency("rack-test", "~> 2.2")
   s.add_development_dependency("capybara", "~> 3.40")
   s.add_development_dependency("selenium-webdriver", "~> 4.38")
-  s.add_development_dependency("webdrivers", "~> 5.3")
 end
