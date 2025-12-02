@@ -8,7 +8,7 @@ gem 'ordnung'
 require 'ordnung'
 
 module OrdnungUI
-  VERSION = '0.2.0'
+  VERSION = '0.2.1'
 
   extend self
 
