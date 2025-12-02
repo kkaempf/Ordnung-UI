@@ -70,7 +70,7 @@ class App < Sinatra::Base
 
   get "/api/help" do
     routes = []
-    App.each_route do |route|
+    self.each_route do |route|
       routes << {:route => route.path} if route.path.is_a? String
     end
     routes.uniq.to_json
@@ -79,17 +79,23 @@ class App < Sinatra::Base
     return { count: @ordnung.count }.to_json
   end
   get "/api/files" do
-    offset = params['offset']
-    limit = params['limit']
+    offset = params['offset'].to_i rescue 0
+    limit = params['limit'].to_i rescue 5
     STDERR.puts ("api/files offset #{offset.inspect} limit #{limit.inspect}")
     files = []
+    @count = 0
     @ordnung.each do |gizmo|
+      break if @count >= limit
       files << gizmo.path
+      @count += 1
     end
     return { files: files }.to_json
   end
   get "/api/item/:itemkey" do
     document = @ordnung.get(params[:itemkey])
-    return { item: document.to_hash }.to_json
+    if document
+      return { item: document.to_hash }.to_json
+    end
+    return "#{params[:itemkey].inspect} not found"
   end
 end
