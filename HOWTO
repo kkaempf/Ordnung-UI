@@ -1,0 +1,14 @@
+How it runs
+
+- start bin/ordnung -s
+  -> starts bin/app
+    -> runs App.run!
+
+- lib/app.rb implements pathes
+  and sets port to 4567
+
+- browser gets "/"
+
+- get "/" (in lib/app.rb)
+  -> haml "ordnung"
+    -> views/ordnung.haml
